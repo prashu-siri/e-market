@@ -1,0 +1,25 @@
+<div class="form-group">
+	<label class="form-label" [for]="fieldId">{{ label }}</label>
+	<select
+		class="form-input"
+		[id]="fieldId"
+		[name]="fieldId"
+		(blur)="touched()"
+		(input)="change($any($event.target).value)"
+	>
+		<option value="">Select</option>
+		<option *ngFor="let item of items" [value]="item.name">
+			{{ item.name }}
+		</option>
+	</select>
+	<div
+		*ngIf="
+			fieldValue?.invalid && (fieldValue?.touched || fieldValue?.dirty)
+		"
+		class="inline_error"
+	>
+		<span *ngIf="fieldValue?.hasError('required')"
+			>{{ label }} is required</span
+		>
+	</div>
+</div>

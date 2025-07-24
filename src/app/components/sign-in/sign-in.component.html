@@ -1,0 +1,89 @@
+<div class="header">
+	<nav>
+		<div class="logo">
+			<img alt="" src="assets/img/e-market/logo.png" />
+		</div>
+	</nav>
+</div>
+<div class="login-page">
+	<div class="tab-group">
+		<ul>
+			<li>
+				<a
+					(click)="activateTab($event, 'login')"
+					[class.active]="tabs.login"
+					href="#"
+				>
+					Login
+				</a>
+			</li>
+			<li>
+				<a
+					(click)="activateTab($event, 'signUp')"
+					[class.active]="tabs.signUp"
+					href="#"
+					>Sign Up
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="tab-content-container">
+		<app-alert [alertDetails]="alert"></app-alert>
+		<div *ngIf="tabs.login" class="tab-content login-tab-content">
+			<form (ngSubmit)="login()" [formGroup]="signInForm">
+				<app-input
+					[form]="signInForm"
+					fieldName="email"
+					formControlName="email"
+					id="email"
+					label="Email"
+				></app-input>
+				<app-input
+					[form]="signInForm"
+					fieldName="password"
+					formControlName="password"
+					id="password"
+					label="Password"
+					type="password"
+				></app-input>
+				<button class="btn btn-primary">Login In</button>
+			</form>
+		</div>
+
+		<div *ngIf="tabs.signUp" class="tab-content">
+			<form (ngSubmit)="signUp()" [formGroup]="signUpForm">
+				<app-input
+					[form]="signUpForm"
+					fieldName="firstName"
+					formControlName="firstName"
+					id="firstName"
+					label="First Name"
+				></app-input>
+				<app-input
+					[form]="signUpForm"
+					fieldName="lastName"
+					formControlName="lastName"
+					id="lastName"
+					label="Last Name"
+				></app-input>
+				<app-input
+					[form]="signUpForm"
+					fieldName="email"
+					formControlName="email"
+					id="emailId"
+					label="Email"
+				></app-input>
+				<app-input
+					[form]="signUpForm"
+					fieldName="password"
+					formControlName="password"
+					id="password"
+					label="Password"
+					type="password"
+				></app-input>
+				<button class="btn btn-primary">Sign Up</button>
+			</form>
+		</div>
+	</div>
+</div>

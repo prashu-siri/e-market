@@ -1,0 +1,55 @@
+@if (productDetails) {
+<div class="product-details-container">
+	<div class="product-image-wrapper">
+		<img [src]="productDetails.imageUrl" alt="" />
+	</div>
+	<div class="product-details-wrapper">
+		<div class="product-details">
+			<span>Name</span>
+			<span>{{ productDetails.name }}</span>
+		</div>
+		<div class="product-details">
+			<span>Cost</span>
+			<span>{{ productDetails.cost }} / {{ productDetails.unit }}</span>
+		</div>
+
+		<div class="product-details">
+			@if (productDetails.available) {
+			<span [ngClass]="productDetails.available ? 'available' : null"
+				>In Stock</span
+			>
+			} @else {
+			<span [ngClass]="!productDetails.available ? 'not-available' : null"
+				>Out of Stock</span
+			>
+			}
+		</div>
+
+		<div class="product-details product-fact">
+			<p>{{ productDetails.fact }}</p>
+		</div>
+
+		<div class="quantity-container">
+			<div class="quantity-wrapper">
+				<a (click)="changeQuantity($event, 'minus')" href="#">
+					<app-icon name="minus"></app-icon>
+				</a>
+				<input
+					[(ngModel)]="productDetails.quantity"
+					aria-label="Quantity"
+					id="quantity"
+					name="quantity"
+					type="text"
+				/>
+				<a (click)="changeQuantity($event, 'plus')" href="#">
+					<app-icon [name]="'add'"></app-icon>
+				</a>
+			</div>
+
+			<button (click)="addToCart($event)" class="btn btn-primary">
+				<app-icon name="cart"></app-icon>
+			</button>
+		</div>
+	</div>
+</div>
+}

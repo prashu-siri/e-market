@@ -1,0 +1,161 @@
+<div class="page-container">
+	<div class="container">
+		<h1>Payment</h1>
+		<ul class="payment-options">
+			<li>
+				<label class="radio-label">
+					<span>
+						Credit / Debit card
+						<img
+							src="../../../../../assets/img/e-market/credit-card.svg"
+							alt=""
+							height="24px"
+							width="32px"
+						/>
+					</span>
+					<input
+						type="radio"
+						name="payment"
+						value="card"
+						[(ngModel)]="paymentType"
+						checked
+					/>
+					<span class="checker checker-outside"></span>
+				</label>
+				@if (paymentType == 'card') {
+				<div class="payment-wrapper">
+					<form [formGroup]="cardPaymentForm">
+						<div class="form-field-wrapper">
+							<label for="cardNumber">Card Number</label>
+							<input
+								type="text"
+								name="cardNumber"
+								placeholder="xxxx-xxxx-xxxx-xxxx"
+								formControlName="cardNumber"
+							/>
+						</div>
+						<div class="side-layout">
+							<div class="form-field-wrapper">
+								<label for="expiry">Expiry</label>
+								<input
+									type="text"
+									id="expiry"
+									name="expiry"
+									placeholder="mm/yy"
+									formControlName="expiry"
+								/>
+							</div>
+							<div class="form-field-wrapper">
+								<label for="cvv">CVV</label>
+								<input
+									type="text"
+									id="cvv"
+									name="cvv"
+									formControlName="cvv"
+								/>
+							</div>
+						</div>
+						<div class="form-field-wrapper">
+							<label for="nameOnCard">Name on card</label>
+							<input
+								type="text"
+								id="nameOnCard"
+								name="nameOnCard"
+								formControlName="nameOnCard"
+							/>
+						</div>
+					</form>
+				</div>
+				}
+			</li>
+			<li>
+				<label class="radio-label">
+					<span>
+						UPI
+						<img
+							src="../../../../../assets/img/e-market/upi-icon.svg"
+							alt="UPI"
+							height="24px"
+							width="32px"
+						/>
+					</span>
+					<input
+						type="radio"
+						name="payment"
+						value="upi"
+						[(ngModel)]="paymentType"
+					/>
+					<span class="checker checker-outside"></span>
+				</label>
+				@if (paymentType == 'upi') {
+				<div class="stack-layout">
+					<button class="btn-payment">
+						<span>
+							<img
+								class="img"
+								src="../../../../../assets/img/e-market/phonepe-icon.svg"
+								alt=""
+							/>
+							PhonePe
+						</span>
+						<span>&#10230;</span>
+					</button>
+					<button class="btn-payment">
+						<span>
+							<img
+								class="img"
+								src="../../../../../assets/img/e-market/google-pay-icon.svg"
+								alt=""
+							/>
+							GPay
+						</span>
+						<span>&#10230;</span>
+					</button>
+					<button class="btn-payment">
+						<span>
+							<img
+								class="img"
+								src="../../../../../assets/img/e-market/paytm-icon.svg"
+								alt=""
+							/>
+							Paytm
+						</span>
+						<span>&#10230;</span>
+					</button>
+				</div>
+				}
+			</li>
+			<li>
+				<label class="radio-label">
+					<span>
+						Cash On delivery
+						<img
+							src="../../../../../assets/img/e-market/wallet.svg"
+							alt=""
+							height="24px"
+							width="32px"
+						/>
+					</span>
+					<input
+						type="radio"
+						name="payment"
+						value="cod"
+						[(ngModel)]="paymentType"
+					/>
+					<span class="checker checker-outside"></span>
+				</label>
+			</li>
+		</ul>
+		<div class="btn-container side-layout-flex">
+			<button
+				class="btn btn-secondary"
+				(click)="navigateToPreviousPage()"
+			>
+				Back
+			</button>
+			<button class="btn btn-primary" (click)="processPayment()">
+				Proceed
+			</button>
+		</div>
+	</div>
+</div>

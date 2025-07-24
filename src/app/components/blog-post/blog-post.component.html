@@ -1,0 +1,19 @@
+<div class="breadcrumb">
+	<ul>
+		<li>
+			<a href="#" [routerLink]="['../']">Blog</a>
+		</li>
+		<li>Blog post</li>
+	</ul>
+</div>
+<div class="blog__post" *ngIf="post">
+	<div class="blog__post__image">
+		<img [src]="post.imageUrl" alt="" />
+	</div>
+	<div>
+		<p class="title">{{ post.title }}</p>
+		<p class="small-text">Published On: {{ post.publishedOn }}</p>
+		<p class="small-text">Published By: {{ post.publishedBy }}</p>
+		<p class="post">{{ post.content }}</p>
+	</div>
+</div>

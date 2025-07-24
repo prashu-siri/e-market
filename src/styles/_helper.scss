@@ -1,0 +1,26 @@
+.df {
+  display : flex;
+}
+
+.jc-center {
+  justify-content : center;
+}
+
+.jc-space-btw {
+  justify-content : space-between;
+}
+
+.jc-right {
+  justify-content : flex-end;
+}
+
+.jc-sb {
+  justify-content : space-between;
+}
+
+@mixin flex($justifyContent: flex-start, $alignItem: flex-start, $direction: row) {
+  display         : flex;
+  justify-content : $justifyContent;
+  align-items     : $alignItem;
+  flex-direction  : $direction;
+}

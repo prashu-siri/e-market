@@ -1,0 +1,43 @@
+<div class="page-container">
+	<div class="container">
+		<h1 class="page-heading">Cart</h1>
+		@if (hasProducts()) {
+		<div class="cart-container">
+			<table>
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Price/Unit</th>
+						<th>Quantity</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let product of products">
+						<td>
+							<span class="image-wrapper">
+								<img [src]="product.imageUrl" alt="" />
+							</span>
+							{{ product.name }}
+						</td>
+						<td>{{ product.cost }} / {{ product.unit }}</td>
+						<td>{{ product.noOfItems }} {{ product.unit }}</td>
+						<td>
+							<a (click)="removeItem($event, product)" href="#">
+								<app-icon name="trash" class="icon-trash" />
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		} @else {
+		<div class="cart-empty">
+			<p>Your cart is empty</p>
+			<button class="btn btn-primary" routerLink="home">
+				Continue shopping
+			</button>
+		</div>
+		}
+	</div>
+</div>

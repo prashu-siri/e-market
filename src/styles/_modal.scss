@@ -1,0 +1,116 @@
+.modal-container {
+  position   : fixed;
+  top        : 0;
+  left       : 0;
+  right      : 0;
+  bottom     : 0;
+  background : rgba(0, 0, 0, 0.5);
+  transform  : scale(0);
+}
+
+.modal-container.open {
+  transform  : scale(1);
+  transition : all 0.5s ease;
+}
+
+.modal-container.open .modal {
+  transform  : scale(1);
+  transition : all 0.5s ease 0.2s;
+  top        : 10%;
+  left       : 30%;
+}
+
+.modal {
+  position      : absolute;
+  width         : 50%;
+  background    : #FFFFFF;
+  border-radius : 3px;
+  transform     : scale(0);
+
+  .btn {
+	border         : none;
+	border-radius  : 3px;
+	outline        : none;
+	width          : auto;
+	padding        : 6px 12px;
+	letter-spacing : 0.5px;
+	color          : #FFFFFF;
+	cursor         : pointer;
+	text-transform : uppercase;
+	margin         : 6px;
+	transition     : transform 0.2s ease;
+	font-weight    : 500;
+  }
+
+  .btn:active {
+	transform : scale(0.9);
+  }
+
+  .btn-primary {
+	background : #0C5EA6;
+  }
+
+  .btn-secondary {
+	background : lightgrey;
+  }
+
+  .button-container {
+	display         : flex;
+	flex-direction  : row;
+	justify-content : space-between;
+	margin-top      : 24px;
+	padding         : 12px;
+  }
+
+  .button-end {
+	justify-content : flex-end;
+  }
+
+  .flex-right {
+	justify-content : flex-end;
+  }
+
+}
+
+.modal svg {
+  height : 24px;
+  width  : 24px;
+  fill   : black;
+}
+
+.modal .modal-header {
+  padding         : 12px 24px;
+  border-bottom   : 1px solid #2F4858;
+  display         : flex;
+  justify-content : space-between;
+  align-items     : center;
+}
+
+.modal .modal-header h1 {
+  padding : 0;
+  margin  : 0;
+  border  : 0;
+}
+
+.modal .modal-header a {
+  cursor : pointer;
+}
+
+.modal .modal-body {
+  padding : 12px 24px;
+}
+
+@media screen and (max-width : 900px) {
+  .modal .button-container {
+	flex-direction : column-reverse;
+  }
+
+  .modal-container.open .modal {
+	left   : 0;
+	margin : 1em;
+  }
+
+  .modal {
+    width: 90%;
+  }
+}

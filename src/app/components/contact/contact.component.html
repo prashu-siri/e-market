@@ -1,0 +1,78 @@
+<div class="page-container">
+	<div class="container">
+		<h1 class="page-heading">Contact Us</h1>
+		<div class="contact-wrapper">
+			<div class="contact-form">
+				<h2>Get in touch</h2>
+				<app-alert [alertDetails]="alertDetails"></app-alert>
+				<form (ngSubmit)="submit()" [formGroup]="contactForm">
+					<div class="form-group">
+						<label class="form-label" for="name">Name*</label>
+						<input
+							class="form-input"
+							formControlName="name"
+							id="name"
+							type="text"
+						/>
+						<div
+							*ngIf="(name.dirty || name.touched) && name.invalid"
+							class="inline_error"
+						>
+							<span *ngIf="name.hasError('required')">
+								Name is required
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="email">Email*</label>
+						<input
+							class="form-input"
+							formControlName="email"
+							id="email"
+							type="text"
+						/>
+						<div
+							*ngIf="
+								(email.dirty || email.touched) && email.invalid
+							"
+							class="inline_error"
+						>
+							<span *ngIf="email.hasError('required')">
+								Email is required
+							</span>
+							<span *ngIf="email.hasError('pattern')">
+								Invalid email address
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="form-label" for="message">Message</label>
+						<textarea
+							class="form-input"
+							cols="30"
+							formControlName="message"
+							id="message"
+							name="message"
+							rows="10"
+						></textarea>
+					</div>
+					<button class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+			<div class="address">
+				<section>
+					<h2>Address</h2>
+					<p>Plot no 123</p>
+					<p>Electronic City</p>
+					<p>Bangalore, India</p>
+				</section>
+
+				<section>
+					<h2>Contact</h2>
+					<p>Mobile: (+91) 9054 123 456</p>
+					<p>Office: (+91) 9876 123 456</p>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,83 @@
+<div class="page-container">
+	<div class="container">
+		<h1>Shipping</h1>
+		<form (ngSubmit)="submit()" [formGroup]="form">
+			<div class="form-horizontal">
+				<app-input
+					[form]="form"
+					fieldName="firstName"
+					formControlName="firstName"
+					id="firstName"
+					label="First Name"
+				></app-input>
+				<app-input
+					[form]="form"
+					fieldName="lastName"
+					formControlName="lastName"
+					id="lastName"
+					label="Last Name"
+				></app-input>
+			</div>
+
+			<app-input
+				[form]="form"
+				fieldName="phoneNumber"
+				formControlName="phoneNumber"
+				id="phoneNumber"
+				label="Phone Number"
+			></app-input>
+			<app-input
+				[form]="form"
+				fieldName="address"
+				formControlName="address"
+				id="address"
+				label="Address"
+			></app-input>
+			<app-input
+				[form]="form"
+				fieldName="apartment"
+				formControlName="apartment"
+				id="apartment"
+				label="Apartment/Suite/Building"
+			></app-input>
+
+			<div class="form-horizontal">
+				<app-input
+					[form]="form"
+					fieldName="city"
+					formControlName="city"
+					id="city"
+					label="City"
+				></app-input>
+				<app-select
+					[form]="form"
+					[items]="states"
+					fieldId="state"
+					fieldName="state"
+					formControlName="state"
+					label="State"
+				></app-select>
+			</div>
+
+			<div class="form-horizontal">
+				<app-input
+					[form]="form"
+					fieldName="postalCode"
+					formControlName="postalCode"
+					id="postalCode"
+					label="Postal Code"
+				></app-input>
+			</div>
+
+			<div class="btn-container side-layout-flex">
+				<button
+					class="btn btn-secondary"
+					(click)="navigateToPreviousPage()"
+				>
+					Back
+				</button>
+				<button class="btn btn-primary">Proceed to Payment</button>
+			</div>
+		</form>
+	</div>
+</div>

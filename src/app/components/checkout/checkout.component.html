@@ -1,0 +1,28 @@
+<div class="page-container">
+	<div class="container">
+		<!-- <h1 class="page-heading">Checkout</h1> -->
+
+		<app-alert [alertDetails]="alert"></app-alert>
+
+		<section class="side-layout-wrapper">
+			<div>
+				@switch (pageName) { @case ('cart') {
+				<app-cart></app-cart>
+				} @case('shipping') {
+				<app-shipping
+					[form]="shippingForm"
+					[states]="states"
+				></app-shipping>
+				} @case ('payment') {
+				<app-payment></app-payment>
+				}}
+			</div>
+			@if (products.length > 0) {
+			<app-order-summary
+				[products]="products"
+				[pageName]="'cart'"
+			></app-order-summary>
+			}
+		</section>
+	</div>
+</div>

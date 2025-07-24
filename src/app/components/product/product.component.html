@@ -1,0 +1,112 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="page-container">
+	<div class="container">
+		<div class="header-container">
+			<h1>{{ pageHeading }}</h1>
+			<div class="search-input-wrapper">
+				<input
+					aria-label="Search"
+					id="search-input"
+					name="search"
+					type="search"
+					placeholder="Search"
+					(keyup)="search()"
+					[(ngModel)]="searchTerm"
+				/>
+			</div>
+		</div>
+		<div class="product-card-wrapper product-card-lg">
+			@for (product of filteredProducts; track $index) {
+			<div class="product-card">
+				<img [src]="product.imageUrl" alt="" />
+				<div class="product-info">
+					<h3 class="product-title">{{ product.name }}</h3>
+					<span
+						>{{ product.cost | currency : "INR" }} /
+						{{ product.unit }}</span
+					>
+					<div class="quantity-container">
+						<div class="quantity-wrapper">
+							<a
+								(click)="removeQuantity($event, product)"
+								href="#"
+							>
+								<app-icon name="minus" />
+							</a>
+							<input
+								id="quantity"
+								name="quantity"
+								[(ngModel)]="product.quantity"
+								type="text"
+								aria-label="Quantity"
+							/>
+							<a (click)="addQuantity($event, product)" href="#">
+								<app-icon name="add" />
+							</a>
+						</div>
+
+						<button
+							(click)="addToCart(product)"
+							class="btn btn-primary"
+						>
+							<app-icon name="cart" />
+						</button>
+					</div>
+				</div>
+			</div>
+			}
+		</div>
+
+		<div class="product-card-sm">
+			<div *ngFor="let product of filteredProducts" class="product">
+				<div class="product-image">
+					<img [src]="product.imageUrl" [alt]="product.name" />
+				</div>
+				<div class="product-details-wrapper-sm">
+					<div class="product-details">
+						<span>{{ product.name }}</span>
+						<span
+							>{{ product.cost | currency : "INR" }} /
+							{{ product.unit }}</span
+						>
+					</div>
+					<div>
+						<button (click)="openAdd(product)" class="cart-btn">
+							<app-icon name="cart" />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="add-to-cart">
+				<div class="quantity-container">
+					<div class="quantity-wrapper">
+						<p>{{ item.name }}</p>
+						<div class="quantity">
+							<a href="#" (click)="removeQuantity($event, item)">
+								<app-icon name="minus" />
+							</a>
+							<input
+								id="quantity"
+								name="quantity"
+								type="text"
+								aria-label="Quantity"
+								[(ngModel)]="item.quantity"
+							/>
+							<a href="#" (click)="addQuantity($event, item)">
+								<app-icon name="add" />
+							</a>
+						</div>
+					</div>
+
+					<button class="btn-cart btn-add" (click)="addToCart(item)">
+						ADD TO CART
+					</button>
+					<button class="btn-cart btn-cancel" (click)="cancelAdd()">
+						CANCEL
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

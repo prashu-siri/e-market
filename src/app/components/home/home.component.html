@@ -1,0 +1,137 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+<div class="page-container">
+	<div class="hero">
+		<h1>Organic fresh fruits for your health</h1>
+		<button
+			class="btn btn-primary hero__button"
+			routerLink="../product/fruit"
+		>
+			Shop now
+		</button>
+	</div>
+
+	<section class="sale container">
+		<h2>Sale</h2>
+		<div class="df">
+			<div class="card card-vegetable-sale">
+				<span class="card__banner">Sale</span>
+				<div class="card__content">
+					<h3>Fresh Vegetable Sale</h3>
+					<p>Upto 50% off</p>
+					<button
+						class="btn btn-primary card-button"
+						routerLink="../product/vegetable"
+					>
+						Shop now
+					</button>
+				</div>
+			</div>
+			<div class="card card-fruit-sale">
+				<span class="card__banner">Sale</span>
+				<div class="card__content">
+					<h3>Fresh Fruits Sale</h3>
+					<p>Upto 50% off</p>
+					<button
+						class="btn btn-primary card-button"
+						routerLink="../product/fruit"
+					>
+						Shop now
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="featured-products container">
+		<h2>Featured products</h2>
+		<div class="product-card-wrapper">
+			<div *ngFor="let product of products" class="product-card">
+				<img [src]="product.imageUrl" alt="" />
+				<div class="product-info">
+					<h3 class="product-title">{{ product.name }}</h3>
+					<span>Rs. {{ product.cost }} / {{ product.unit }}</span>
+				</div>
+				<div class="action">
+					<button
+						(click)="preview(product)"
+						class="btn btn-icon btn-primary"
+					>
+						<app-icon name="eye"></app-icon>
+					</button>
+					<button
+						class="btn btn-primary btn-icon"
+						(click)="addToCart(product)"
+					>
+						<app-icon name="cart"></app-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="info df jc-sb container">
+		<div>
+			<app-icon name="headphone"></app-icon>
+			<div class="info__text">
+				<p>24 / 7 Free Support</p>
+				<sub>Call us for support</sub>
+			</div>
+		</div>
+		<div>
+			<app-icon name="savings"></app-icon>
+			<div class="info__text">
+				<p>Cashback</p>
+				<sub>Get upto 5% cashback</sub>
+			</div>
+		</div>
+		<div>
+			<app-icon name="quality"></app-icon>
+			<div class="info__text">
+				<p>High Quality</p>
+				<sub>We assure high quality</sub>
+			</div>
+		</div>
+	</section>
+
+	<section class="comments">
+		<h2>Clients's say</h2>
+		<div class="user-comments-wrapper">
+			<div *ngFor="let review of reviews" class="user-comment">
+				<div class="user-details">
+					<img [src]="review.imageUrl" alt="" />
+					<span>{{ review.name }}</span>
+				</div>
+				<p>{{ review.comment }}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="posts container">
+		<h2>Recent Posts</h2>
+		<div class="post-wrapper">
+			<div *ngFor="let post of posts" class="card-column">
+				<img [src]="post.imageUrl" alt="" />
+				<div class="post-content">
+					<span class="publisher">By: {{ post.publishedBy }}</span>
+					<p>{{ post.title }}</p>
+					<span class="publisher"
+						>Published on: {{ post.publishedOn }}</span
+					>
+					<a href="#" [routerLink]="['../blog', post.id]"
+						>Read more ></a
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<app-modal
+	[isPrimaryButtonVisible]="false"
+	[isSecondaryButtonVisible]="false"
+	modalHeader="Preview"
+>
+	<app-product-preview
+		[productDetails]="previewProductDetails"
+	></app-product-preview>
+</app-modal>
