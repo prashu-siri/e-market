@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,7 @@ const routes: Routes = [
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'login', component: SignInComponent },
 	{ path: 'home', component: HomeComponent },
+	{ path: 'confirmation', component: OrderConfirmationComponent },
 	{ path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 

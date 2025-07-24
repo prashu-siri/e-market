@@ -30,10 +30,22 @@
 							<input
 								type="text"
 								name="cardNumber"
-								placeholder="xxxx-xxxx-xxxx-xxxx"
+								placeholder="XXXX XXXX XXXX XXXX"
 								formControlName="cardNumber"
+								mask="0000 0000 0000 0000"
+                [dropSpecialCharacters]="false"
+                maxlength="19"
 							/>
 						</div>
+						@if(cardNumber.invalid && cardNumber.touched) { @if
+						(cardNumber.errors?.required) {
+						<p class="inline_error">Card number is required</p>
+						}@if (cardNumber.errors?.pattern) {
+						<p class="inline_error">Only numbers allowed</p>
+						}
+            @if (cardNumber.errors?.['luhnCheck']) {
+              <p class="inline_error">Invalid card number</p>
+            }}
 						<div class="side-layout">
 							<div class="form-field-wrapper">
 								<label for="expiry">Expiry</label>
@@ -43,8 +55,24 @@
 									name="expiry"
 									placeholder="mm/yy"
 									formControlName="expiry"
+                  mask="00/00"
+                  [dropSpecialCharacters]="false"
 								/>
+                @if (expiry.invalid && expiry.touched) {
+
+                @if (expiry.errors?.['required']) {
+                  <p class="inline_error">Expiry date is required</p>
+                }
+                @if (expiry.errors?.['pattern']) {
+                  <p class="inline_error">Invalid format (use MM/YY)</p>
+                }
+                @if (expiry.errors?.['expired']) {
+                  <p class="inline_error">This card is expired</p>
+                }
+            }
 							</div>
+
+
 							<div class="form-field-wrapper">
 								<label for="cvv">CVV</label>
 								<input
@@ -53,6 +81,13 @@
 									name="cvv"
 									formControlName="cvv"
 								/>
+                @if(cvv.invalid && cvv.touched) {
+                @if(cvv.errors?.required) {
+                  <p class="inline_error">CVV is required</p>
+                } @if(cvv.errors?.pattern) {
+                  <p class="inline_error">CVV must be 3 or 4 digits</p>
+                }
+              }
 							</div>
 						</div>
 						<div class="form-field-wrapper">
@@ -64,6 +99,11 @@
 								formControlName="nameOnCard"
 							/>
 						</div>
+            @if(nameOnCard.invalid && nameOnCard.touched) {
+              @if(nameOnCard.errors?.required) {
+                <p class="inline_error">CVV is required</p>
+              }
+            }
 					</form>
 				</div>
 				}

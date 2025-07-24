@@ -55,29 +55,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		this.shippingForm = new FormGroup({
 			firstName: new FormControl('', Validators.required),
 			lastName: new FormControl('', Validators.required),
+			email: new FormControl('', Validators.required),
 			phoneNumber: new FormControl('', [
 				Validators.required,
 				Validators.pattern('^[0-9]{10}$'),
 			]),
 			address: new FormControl('', Validators.required),
-			apartment: new FormControl(''),
-			city: new FormControl('', Validators.required),
-			state: new FormControl('', Validators.required),
-			postalCode: new FormControl('', [
-				Validators.required,
-				Validators.pattern('^[0-9]{0,6}$'),
-			]),
-		});
-
-		this.billingForm = new FormGroup({
-			firstName: new FormControl('', Validators.required),
-			lastName: new FormControl('', Validators.required),
-			phoneNumber: new FormControl('', [
-				Validators.required,
-				Validators.pattern('^[0-9]{10}$'),
-			]),
-			address: new FormControl('', Validators.required),
-			apartment: new FormControl(''),
+			landmark: new FormControl(''),
+			addressType: new FormControl(''),
 			city: new FormControl('', Validators.required),
 			state: new FormControl('', Validators.required),
 			postalCode: new FormControl('', [
@@ -105,55 +90,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		return this.totalCost;
 	}
 
-	setBillingForm() {
-		if (this.sameAsShipping) {
-			this.billingForm.setValue(this.shippingForm.value);
-		} else {
-			this.billingForm.reset();
-		}
-	}
-
 	submitCustomerForm() {
 		if (this.customerForm.invalid && !this.isLoggedIn()) {
 			this.customerForm.markAllAsTouched();
 		} else {
 			this.customerForm?.get('email')?.setValue(this.getUserEmail());
-		}
-	}
-
-	pay() {
-		this.setBillingForm();
-		this.submitCustomerForm();
-		if (
-			this.shippingForm.valid &&
-			this.billingForm.valid &&
-			this.customerForm.valid
-		) {
-			this.service
-				.placeOrder(
-					this.products,
-					this.shippingForm.value,
-					this.billingForm.value,
-					this.customerForm.value
-				)
-				.subscribe();
-			this.success = true;
-			this.alert = {
-				isErrorMessage: false,
-				isSuccessMessage: true,
-				message:
-					'Thank you for shopping at Purilo. Your order has been placed successfully.',
-			};
-			this.showCheckout = false;
-			//Empty localstorage
-			this.service.removeProducts();
-		} else {
-			this.showCheckout = true;
-			this.alert = {
-				isErrorMessage: true,
-				isSuccessMessage: false,
-				message: 'Kindly fill all the sections',
-			};
 		}
 	}
 

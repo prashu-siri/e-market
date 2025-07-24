@@ -35,6 +35,8 @@ import { IconComponent } from './components/icon/icon.component';
 import { SelectComponent } from './components/select/select.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 
 @NgModule({
 	declarations: [
@@ -61,6 +63,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		IconComponent,
 		SelectComponent,
 		SpinnerComponent,
+		OrderConfirmationComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -70,6 +73,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		SimpleNotificationsModule.forRoot(),
 		ReactiveFormsModule,
 		CommonModule,
+		NgxMaskDirective,
 	],
 	providers: [
 		MarketService,
@@ -80,6 +84,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 		},
 		AuthService,
 		NotificationsService,
+		provideNgxMask(),
 	],
 	bootstrap: [AppComponent],
 })

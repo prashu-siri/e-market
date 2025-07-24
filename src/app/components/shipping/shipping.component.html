@@ -19,13 +19,22 @@
 				></app-input>
 			</div>
 
-			<app-input
-				[form]="form"
-				fieldName="phoneNumber"
-				formControlName="phoneNumber"
-				id="phoneNumber"
-				label="Phone Number"
-			></app-input>
+      <div class="form-horizontal">
+        <app-input
+          [form]="form"
+          fieldName="email"
+          formControlName="email"
+          id="email"
+          label="Email"
+        ></app-input>
+        <app-input
+          [form]="form"
+          fieldName="phoneNumber"
+          formControlName="phoneNumber"
+          id="phoneNumber"
+          label="Phone Number"
+        ></app-input>
+      </div>
 			<app-input
 				[form]="form"
 				fieldName="address"
@@ -35,10 +44,10 @@
 			></app-input>
 			<app-input
 				[form]="form"
-				fieldName="apartment"
-				formControlName="apartment"
-				id="apartment"
-				label="Apartment/Suite/Building"
+				fieldName="landmark"
+				formControlName="landmark"
+				id="landmark"
+				label="Landmark"
 			></app-input>
 
 			<div class="form-horizontal">
@@ -67,6 +76,14 @@
 					id="postalCode"
 					label="Postal Code"
 				></app-input>
+        <app-select
+					[form]="form"
+					[items]="addressTypes"
+					fieldId="addressType"
+					fieldName="addressType"
+					formControlName="addressType"
+					label="Address Type"
+				></app-select>
 			</div>
 
 			<div class="btn-container side-layout-flex">

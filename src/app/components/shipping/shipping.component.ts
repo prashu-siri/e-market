@@ -14,6 +14,11 @@ export class ShippingComponent implements OnInit {
 	@Input()
 	states!: any[];
 
+	addressTypes: any[] = [
+		{ code: 'res', name: 'Residential' },
+		{ code: 'bus', name: 'Business' },
+	];
+
 	constructor(private service: MarketService) {}
 
 	ngOnInit(): void {}
@@ -42,12 +47,20 @@ export class ShippingComponent implements OnInit {
 		return this.form.get('phoneNumber') as FormControl;
 	}
 
+	get email(): FormControl {
+		return this.form.get('email') as FormControl;
+	}
+
 	get address(): FormControl {
 		return this.form.get('address') as FormControl;
 	}
 
-	get apartment(): FormControl {
-		return this.form.get('apartment') as FormControl;
+	get landmark(): FormControl {
+		return this.form.get('landmark') as FormControl;
+	}
+
+	get addressType(): FormControl {
+		return this.form.get('addressType') as FormControl;
 	}
 
 	get city(): FormControl {
