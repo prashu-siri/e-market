@@ -96,6 +96,9 @@ export class PaymentComponent implements OnInit {
 				this.router.navigate(['confirmation']);
 				this.service.setProducts([]);
 			}
+		} else if(this.paymentType == 'cod'){
+			this.router.navigate(['confirmation']);
+			this.service.setProducts([]);
 		}
 	}
 
