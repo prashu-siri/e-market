@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
 })
 export class IconComponent {
 	@Input() name!: string;
+	@Input() class?: string;
 	version: number = 0;
 
 	constructor() {

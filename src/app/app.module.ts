@@ -37,6 +37,7 @@ import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -74,6 +75,7 @@ import { OrderConfirmationComponent } from './components/order-confirmation/orde
 		ReactiveFormsModule,
 		CommonModule,
 		NgxMaskDirective,
+		BrowserAnimationsModule,
 	],
 	providers: [
 		MarketService,

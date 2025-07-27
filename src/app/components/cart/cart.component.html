@@ -1,39 +1,110 @@
 <div class="page-container">
 	<div class="container">
-		<h1 class="page-heading">Cart</h1>
 		@if (hasProducts()) {
-		<div class="cart-container">
-			<table>
-				<thead>
-					<tr>
-						<th>Item</th>
-						<th>Price/Unit</th>
-						<th>Quantity</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let product of products">
-						<td>
-							<span class="image-wrapper">
-								<img [src]="product.imageUrl" alt="" />
-							</span>
-							{{ product.name }}
-						</td>
-						<td>{{ product.cost }} / {{ product.unit }}</td>
-						<td>{{ product.noOfItems }} {{ product.unit }}</td>
-						<td>
-							<a (click)="removeItem($event, product)" href="#">
-								<app-icon name="trash" class="icon-trash" />
+		<h1 class="page-heading">Cart</h1>
+		<div class="cart-container cart-lg">
+			@for (product of products; track $index) {
+			<div class="cart-items">
+				<div class="grid-1">
+					<span class="image-wrapper">
+						<img [src]="product.imageUrl" alt="" />
+					</span>
+					<div class="item-wrapper">
+						<span>{{ product.name }}</span>
+						<span>{{ product.cost }} / {{ product.unit }}</span>
+						<span>Quantity: {{ product.quantity }}</span>
+					</div>
+				</div>
+				<div class="grid-2">
+					<div class="quantity-container">
+						<div class="quantity-wrapper">
+							<a
+								(click)="removeQuantity($event, product)"
+								href="#"
+							>
+								<app-icon name="minus" />
 							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							<input
+								id="quantity"
+								name="quantity"
+								[(ngModel)]="product.quantity"
+								type="text"
+								aria-label="Quantity"
+							/>
+							<a (click)="addQuantity($event, product)" href="#">
+								<app-icon name="add" />
+							</a>
+						</div>
+					</div>
+					<div class="grid-3">
+						<span>{{
+							getItemCost(product) | currency : "INR"
+						}}</span>
+						<span>
+							<a
+								class="delete-link"
+								href="#"
+								(click)="removeItem($event, product)"
+								>Remove Item</a
+							>
+						</span>
+					</div>
+				</div>
+			</div>
+			}
+		</div>
+
+    <!-- For mobile screens -->
+		<div class="cart-sm dfc">
+			@for (product of products; track $index) {
+			<div class="df cart-sm__card">
+				<img [src]="product.imageUrl" alt="" class="icon-xs" />
+				<div class="cart-sm__details">
+					<span>{{ product.name }}</span>
+					<span>Quantity: {{ product.quantity }}</span>
+					<span class="cart-sm__details-cost">{{ getItemCost(product) | currency : "INR" }}</span>
+					<div class="df jc-space-btw">
+						<div class="quantity-container">
+							<div class="quantity-wrapper">
+								<a
+									(click)="removeQuantity($event, product)"
+									href="#"
+								>
+									<app-icon name="minus" />
+								</a>
+								<input
+									id="quantity"
+									name="quantity"
+									[(ngModel)]="product.quantity"
+									type="text"
+									aria-label="Quantity"
+								/>
+								<a
+									(click)="addQuantity($event, product)"
+									href="#"
+								>
+									<app-icon name="add" />
+								</a>
+							</div>
+						</div>
+            <span>
+							<a
+								class="delete-link"
+								href="#"
+								(click)="removeItem($event, product)"
+								><app-icon name="trash"/></a
+							>
+						</span>
+					</div>
+				</div>
+			</div>
+			}
 		</div>
 		} @else {
 		<div class="cart-empty">
-			<p>Your cart is empty</p>
+			<app-icon name="cart" class="icon-xl"></app-icon>
+			<p class="text-xl">Your cart is empty</p>
+			<p>Looks like you haven't added anything to your cart</p>
 			<button class="btn btn-primary" routerLink="home">
 				Continue shopping
 			</button>

@@ -1,9 +1,11 @@
 <div class="page-container">
 	<div class="container">
-		<h1 class="page-heading">Contact Us</h1>
+		<div class="page-heading">
+			<h1>Contact Us</h1>
+			<p>Get in touch - we're here to help</p>
+		</div>
 		<div class="contact-wrapper">
 			<div class="contact-form">
-				<h2>Get in touch</h2>
 				<app-alert [alertDetails]="alertDetails"></app-alert>
 				<form (ngSubmit)="submit()" [formGroup]="contactForm">
 					<div class="form-group">
@@ -61,16 +63,33 @@
 			</div>
 			<div class="address">
 				<section>
-					<h2>Address</h2>
+					<h2><app-icon name="pin" />Address</h2>
 					<p>Plot no 123</p>
 					<p>Electronic City</p>
 					<p>Bangalore, India</p>
 				</section>
 
 				<section>
-					<h2>Contact</h2>
+					<h2><app-icon name="call" />Contact</h2>
 					<p>Mobile: (+91) 1234 123 456</p>
 					<p>Office: (+91) 1234 123 456</p>
+				</section>
+
+				<section>
+					<h2><app-icon name="email" />Email</h2>
+					<p>support&#64;purilo.com</p>
+				</section>
+
+				<section class="support-social-icons">
+					<a href="https://www.twitter.com" target="_blank">
+						<app-icon name="twitter" class="contact-social-icon"/>
+					</a>
+					<a href="https://www.instagram.com" target="_blank">
+						<app-icon name="instagram" class="contact-social-icon"/>
+					</a>
+					<a href="https://www.facebook.com" target="_blank">
+						<app-icon name="facebook" class="contact-social-icon"/>
+					</a>
 				</section>
 			</div>
 		</div>

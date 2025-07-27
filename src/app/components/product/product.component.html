@@ -26,30 +26,11 @@
 						{{ product.unit }}</span
 					>
 					<div class="quantity-container">
-						<div class="quantity-wrapper">
-							<a
-								(click)="removeQuantity($event, product)"
-								href="#"
-							>
-								<app-icon name="minus" />
-							</a>
-							<input
-								id="quantity"
-								name="quantity"
-								[(ngModel)]="product.quantity"
-								type="text"
-								aria-label="Quantity"
-							/>
-							<a (click)="addQuantity($event, product)" href="#">
-								<app-icon name="add" />
-							</a>
-						</div>
-
 						<button
 							(click)="addToCart(product)"
 							class="btn btn-primary"
 						>
-							<app-icon name="cart" />
+							Add to cart
 						</button>
 					</div>
 				</div>

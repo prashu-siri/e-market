@@ -8,7 +8,7 @@ import { MarketService } from '../../service/market.service';
 	styleUrls: ['./order-summary.component.scss'],
 })
 export class OrderSummaryComponent implements OnInit {
-	@Input()
+	// @Input()
 	products: Product[] = [];
 
 	@Input()
@@ -33,6 +33,8 @@ export class OrderSummaryComponent implements OnInit {
 	constructor(private service: MarketService) {}
 
 	ngOnInit(): void {
+		const products = this.service.getProducts();
+		this.products = products ? JSON.parse(products) : [];
 		this.service.pageName$.subscribe(
 			(pageName) => (this.pageName = pageName)
 		);
@@ -45,21 +47,16 @@ export class OrderSummaryComponent implements OnInit {
 
 	calculateSubTotal(): number {
 		this.totalCost = 0;
+
 		this.products.forEach((product) => {
 			this.totalCost =
-				this.totalCost + product.cost * (product.noOfItems ?? 0);
+				this.totalCost + product.cost * (product.quantity ?? 0);
 		});
 
 		return this.totalCost;
 	}
 
 	calculateTotalCost(): number {
-		this.totalCost = 0;
-		this.products.forEach((product) => {
-			this.totalCost =
-				this.totalCost + product.cost * (product.noOfItems ?? 0);
-		});
-
 		return this.totalCost - this.discount;
 	}
 

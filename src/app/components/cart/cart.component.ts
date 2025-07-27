@@ -29,6 +29,20 @@ export class CartComponent implements OnInit {
 		this.service.setProducts(this.products);
 	}
 
+	addQuantity($event: MouseEvent, product: Product) {
+		$event.preventDefault();
+		this.products = this.service.addQuantity(product);
+	}
+
+	removeQuantity($event: MouseEvent, product: Product) {
+		$event.preventDefault();
+		this.products = this.service.removeQuantity(product);
+	}
+
+	getItemCost(product: Product) {
+		return (product.quantity ?? 0) * product.cost;
+	}
+
 	hasProducts() {
 		return this.products?.length > 0;
 	}

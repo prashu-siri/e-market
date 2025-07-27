@@ -4,24 +4,19 @@
 
 		<app-alert [alertDetails]="alert"></app-alert>
 
-		<section class="side-layout-wrapper">
-			<div>
-				@switch (pageName) { @case ('cart') {
-				<app-cart></app-cart>
-				} @case('shipping') {
-				<app-shipping
-					[form]="shippingForm"
-					[states]="states"
-				></app-shipping>
-				} @case ('payment') {
-				<app-payment></app-payment>
-				}}
-			</div>
-			@if (products.length > 0) {
-			<app-order-summary
-				[products]="products"
-				[pageName]="'cart'"
-			></app-order-summary>
+		<section class="side-layout-flex">
+			@switch (pageName) { @case ('cart') {
+			<app-cart class="side-left"></app-cart>
+			} @case('shipping') {
+			<app-shipping
+				class="side-left"
+				[form]="shippingForm"
+				[states]="states"
+			></app-shipping>
+			} @case ('payment') {
+			<app-payment class="side-left"></app-payment>
+			}} @if (products.length > 0) {
+			<app-order-summary [pageName]="'cart'"></app-order-summary>
 			}
 		</section>
 	</div>

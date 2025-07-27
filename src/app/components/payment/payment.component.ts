@@ -58,7 +58,7 @@ export class PaymentComponent implements OnInit {
 	validateExpiry(): ValidatorFn {
 		return (control: AbstractControl) => {
 			const value = control.value;
-			console.log('expiry', value);
+
 			if (!value) return null;
 
 			const monthStr = value.slice(0, 2);

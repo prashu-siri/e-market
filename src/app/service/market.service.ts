@@ -92,7 +92,6 @@ export class MarketService {
 		}
 
 		this.setProducts(this.products);
-		this.sendNotification();
 		this.notificationsService.success(
 			'Item Added!',
 			`${product.name} is added to cart`,
@@ -105,6 +104,35 @@ export class MarketService {
 				preventDuplicates: true,
 			}
 		);
+	}
+
+	addQuantity(product: Product) {
+		this.products = this.products.map((details) => {
+			if (details.id == product.id) {
+				details.quantity = (details?.quantity ?? 0) + 1;
+			}
+
+			return details;
+		});
+
+		this.setProducts(this.products);
+		return this.products;
+	}
+
+	removeQuantity(product: Product) {
+		this.products = this.products.map((details) => {
+			if (details.id == product.id) {
+				details.quantity =
+					(details?.quantity ?? 0) - 1 <= 0
+						? 1
+						: (details?.quantity ?? 0) - 1;
+			}
+
+			return details;
+		});
+
+		this.setProducts(this.products);
+		return this.products;
 	}
 
 	getProducts(): string {

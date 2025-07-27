@@ -25,7 +25,6 @@ body {
 	font-family: "Inter", sans-serif;
 	color: $text-primary;
 	font-size: 16px;
-	letter-spacing: 0.5px;
 	font-weight: 400;
 	overflow-x: hidden;
 	height: 100vh;
@@ -57,15 +56,31 @@ h4 {
 	width: 100%;
 }
 
+.dfc {
+	display: flex;
+	flex-direction: column;
+}
+
 svg {
 	height: 24px;
 	width: 24px;
 	margin-right: 12px;
-	fill: #616161;
+}
+
+svg.icon-xl {
+	width: 150px;
+	height: 150px;
 }
 
 .social-icon svg {
 	fill: none;
+	stroke: white;
+}
+
+.contact-social-icon svg {
+	fill: none;
+	stroke: black;
+	margin-right: 0;
 }
 
 .icon-trash svg {
@@ -119,55 +134,61 @@ ul {
 }
 
 .confirmation-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 2rem 1rem;
-  background: linear-gradient(to right, #fdfdfd, #f3f3f3);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+	padding: 2rem 1rem;
+	background: linear-gradient(to right, #fdfdfd, #f3f3f3);
 }
 
 .confirmation-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
-  text-align: center;
-  padding: 3rem 2rem;
-  max-width: 500px;
-  width: 100%;
-  animation: fadeIn 0.6s ease-in;
+	background-color: #ffffff;
+	border-radius: 16px;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+	text-align: center;
+	padding: 3rem 2rem;
+	max-width: 500px;
+	width: 100%;
+	animation: fadeIn 0.6s ease-in;
 }
 
 #check-circle {
-  height: 100px;
-  width: 100px;
-  fill: #039e03;
-  margin-right: 0;
+	height: 100px;
+	width: 100px;
+	fill: #039e03;
+	margin-right: 0;
 }
 
 h1 {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  margin-top: 0.75em;
+	font-size: 2rem;
+	margin-bottom: 0.75rem;
+	font-weight: 600;
+	margin-top: 0.75em;
 }
 
 .order-message {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+	font-size: 1.1rem;
+	margin-bottom: 2rem;
 }
 
 .actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 2em;
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: 2em;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .e-market-template {
@@ -302,7 +323,6 @@ h1 {
 	}
 
 	.page-heading {
-		margin-top: 3em;
 		margin-bottom: 1em;
 	}
 
@@ -1046,81 +1066,30 @@ h1 {
 			width: 50px;
 			height: 28px;
 		}
-
-		button {
-			padding: 0.25em 0.75em;
-
-			svg {
-				fill: white;
-				height: 18px;
-				width: 18px;
-				margin-right: 0;
-			}
-		}
 	}
 
 	/*********** CART **********/
+	.cart-lg {
+		display: block;
+	}
+
+	.cart-sm {
+		display: none;
+	}
+
 	.cart-container {
 		gap: 4em;
 
 		#trash {
 			fill: #ff6767;
 		}
-
-		table {
-			table-layout: fixed;
-			width: 100%;
-			border-collapse: collapse;
-			flex-basis: 70%;
-
-			th {
-				text-align: left;
-				border-bottom: 1px solid $color-border;
-				padding: 0.5em;
-
-				&:first-child {
-					width: 50%;
-				}
-
-				&:last-child {
-					text-align: right;
-				}
-			}
-
-			tr:nth-child(even) {
-				background: #fcfcfc;
-			}
-
-			td {
-				padding: 0.5em;
-				height: 100px;
-
-				&:first-child {
-					display: inline-flex;
-					align-items: center;
-				}
-
-				&:last-child {
-					text-align: right;
-				}
-
-				.image-wrapper {
-					width: 20%;
-					margin-right: 2em;
-				}
-
-				img {
-					width: 100%;
-				}
-			}
-		}
 	}
 
 	.order-summary {
-		flex-basis: 30%;
 		padding: 1em 0.75em;
 		border-radius: 5px;
 		box-shadow: 5px 5px 15px rgba(0 0 0 / 0.25);
+		width: 400px;
 
 		h2 {
 			text-align: center;
@@ -1212,34 +1181,39 @@ h1 {
 		}
 	}
 
-	.side-layout-wrapper {
-		display: grid;
-		grid-template-columns: 1fr 0.5fr;
-	}
-
 	.side-layout-flex {
 		display: flex;
 		justify-content: space-between;
 	}
 
+	.side-left {
+		flex: 1;
+	}
+
 	.cart-empty {
-		text-align: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1em;
 
 		button {
-			margin: auto;
+			margin-top: 2em;
 		}
 
 		p {
 			font-size: 22px;
-			font-weight: bold;
-			margin-bottom: 2em;
+		}
+
+		p.text-xl {
+			font-size: 40px;
+			font-weight: 700;
 		}
 	}
 
 	/******** CONTACT US ***********/
 	.contact-wrapper {
 		@include flex(space-between);
-		gap: 10em;
 
 		.address,
 		.contact-form {
@@ -1523,7 +1497,7 @@ h1 {
 		}
 
 		.container {
-			margin: 3em 1.5em;
+			margin: 3em 0.5em;
 		}
 
 		nav {
@@ -1639,10 +1613,6 @@ h1 {
 			@include flex(center, center, column);
 		}
 
-		.side-layout-wrapper {
-			grid-template-columns: 1fr;
-		}
-
 		.side-layout-flex {
 			flex-direction: column;
 			gap: 1em;
@@ -1707,7 +1677,7 @@ h1 {
 			}
 
 			.cart-btn {
-				background-color: #fea45b;
+				background-color: $primary-clr;
 				border: none;
 				padding: 0.5em;
 				border-radius: 3px;
@@ -1794,7 +1764,7 @@ h1 {
 				}
 
 				.btn-add {
-					background-color: #fc7947;
+					background-color: $primary-clr;
 				}
 
 				.btn-cancel {
@@ -1817,22 +1787,55 @@ h1 {
 			}
 		}
 
-		.cart-container {
-			flex-direction: column;
+		.cart-lg {
+			display: none;
 		}
 
-		.cart-container table {
-			th:first-child {
-				width: auto;
-			}
+		.cart-sm {
+			display: flex;
+			flex-direction: column;
 
-			th:nth-child(2) {
-				width: 35%;
+			img {
+				height: 150px;
+				width: 150px;
 			}
+		}
 
-			td .image-wrapper {
-				display: none;
-			}
+		.cart-sm__card {
+			box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+			padding: 1em;
+			border-radius: 5px;
+			margin-bottom: 1em;
+		}
+
+		.cart-sm__details {
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			flex: 1;
+
+      span:first-child{
+        font-weight: 700;
+      }
+
+      .cart-sm__details-cost {
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+		}
+
+    #trash {
+      margin-right: 0;
+      fill: #d50606;
+    }
+
+    .cart-empty p {
+      text-align: center;
+    }
+
+		.cart-container {
+			flex-direction: column;
 		}
 
 		.checkout-container,
