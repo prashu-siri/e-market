@@ -1,12 +1,16 @@
 <div class="page-container">
 	<div class="container">
-		<div class="page-heading">
+		<div class="header-container">
 			<h1>Contact Us</h1>
-			<p>Get in touch - we're here to help</p>
+			<p class="product-subtitle">
+				We'd love to hear from you. Send us a message and we'll respond
+				as soon as possible.
+			</p>
 		</div>
 		<div class="contact-wrapper">
 			<div class="contact-form">
 				<app-alert [alertDetails]="alertDetails"></app-alert>
+        <h2 class="section-title">Send us a Message</h2>
 				<form (ngSubmit)="submit()" [formGroup]="contactForm">
 					<div class="form-group">
 						<label class="form-label" for="name">Name*</label>
@@ -50,7 +54,6 @@
 					<div class="form-group">
 						<label class="form-label" for="message">Message</label>
 						<textarea
-							class="form-input"
 							cols="30"
 							formControlName="message"
 							id="message"
@@ -58,37 +61,41 @@
 							rows="10"
 						></textarea>
 					</div>
-					<button class="btn btn-primary">Submit</button>
+					<button class="btn btn-primary btn-wide">Send Message</button>
 				</form>
 			</div>
 			<div class="address">
-				<section>
-					<h2><app-icon name="pin" />Address</h2>
+        <h2 class="section-title">Contact Information</h2>
+				<section class="contact-method">
+					<h3><app-icon name="pin" />Address</h3>
 					<p>Plot no 123</p>
 					<p>Electronic City</p>
 					<p>Bangalore, India</p>
 				</section>
 
-				<section>
-					<h2><app-icon name="call" />Contact</h2>
+				<section class="contact-method">
+					<h3><app-icon name="call" />Contact</h3>
 					<p>Mobile: (+91) 1234 123 456</p>
 					<p>Office: (+91) 1234 123 456</p>
 				</section>
 
-				<section>
-					<h2><app-icon name="email" />Email</h2>
+				<section class="contact-method">
+					<h3><app-icon name="email" />Email</h3>
 					<p>support&#64;purilo.com</p>
 				</section>
 
 				<section class="support-social-icons">
 					<a href="https://www.twitter.com" target="_blank">
-						<app-icon name="twitter" class="contact-social-icon"/>
+						<app-icon name="twitter" class="contact-social-icon" />
 					</a>
 					<a href="https://www.instagram.com" target="_blank">
-						<app-icon name="instagram" class="contact-social-icon"/>
+						<app-icon
+							name="instagram"
+							class="contact-social-icon"
+						/>
 					</a>
 					<a href="https://www.facebook.com" target="_blank">
-						<app-icon name="facebook" class="contact-social-icon"/>
+						<app-icon name="facebook" class="contact-social-icon" />
 					</a>
 				</section>
 			</div>

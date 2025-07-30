@@ -3,17 +3,30 @@
 	<div class="container">
 		<div class="header-container">
 			<h1>{{ pageHeading }}</h1>
-			<div class="search-input-wrapper">
-				<input
-					aria-label="Search"
-					id="search-input"
-					name="search"
-					type="search"
-					placeholder="Search"
-					(keyup)="search()"
-					[(ngModel)]="searchTerm"
-				/>
-			</div>
+			@if (itemType == 'fruit') {
+			<p class="product-subtitle">
+				Sweet, juicy and packed with vitamins - explore our premium
+				selection of fresh fruits
+			</p>
+			} @else {
+			<p class="product-subtitle">
+				Crisp, nutritious, and full of flavor - discover our farm fresh
+				vegetables.
+			</p>
+			}
+		</div>
+		<div class="search-input-wrapper">
+      <app-icon name="search" />
+			<input
+				aria-label="Search"
+				id="search-input"
+				name="search"
+				type="search"
+        class="search-input"
+				placeholder="Search"
+				(keyup)="search()"
+				[(ngModel)]="searchTerm"
+			/>
 		</div>
 		<div class="product-card-wrapper product-card-lg">
 			@for (product of filteredProducts; track $index) {
@@ -25,14 +38,13 @@
 						>{{ product.cost | currency : "INR" }} /
 						{{ product.unit }}</span
 					>
-					<div class="quantity-container">
-						<button
-							(click)="addToCart(product)"
-							class="btn btn-primary"
-						>
-							Add to cart
-						</button>
-					</div>
+					<button
+						(click)="addToCart($event, product)"
+						class="btn btn-primary btn-icon card-btn"
+					>
+						<app-icon name="cart" />
+						Add to Cart
+					</button>
 				</div>
 			</div>
 			}
@@ -80,7 +92,10 @@
 						</div>
 					</div>
 
-					<button class="btn-cart btn-add" (click)="addToCart(item)">
+					<button
+						class="btn-cart btn-add"
+						(click)="addToCart($event, item)"
+					>
 						ADD TO CART
 					</button>
 					<button class="btn-cart btn-cancel" (click)="cancelAdd()">

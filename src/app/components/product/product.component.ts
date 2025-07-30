@@ -31,7 +31,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 		this.route.paramMap.subscribe((response: ParamMap) => {
 			this.itemType = response.get('item') as string;
 			this.pageHeading =
-				this.itemType === 'fruit' ? 'Fruits' : 'Vegetables';
+				this.itemType === 'fruit' ? 'Fresh Fruits' : 'Fresh Vegetables';
 			this.fetchProducts(this.itemType);
 			this.title.setTitle('Purilo | ' + this.pageHeading);
 		});
@@ -68,9 +68,14 @@ export class ProductComponent implements OnInit, OnDestroy {
 		document.querySelector('.add-to-cart')?.classList.remove('open');
 	}
 
-	addToCart(product: Product) {
-		this.service.addToCart(product);
+	addToCart(event: MouseEvent, product: Product) {
+		const target = event.target as HTMLElement;
+		const originalText = target.innerText;
+		target.innerText = 'Added!';
 		document.querySelector('.add-to-cart')?.classList.remove('open');
+		setTimeout(() => {
+			target.innerText = originalText;
+		}, 500);
 	}
 
 	search() {
