@@ -432,7 +432,7 @@ h1 {
 
 		a {
 			display: inline-block;
-			color: $white;
+			color: $text-primary;
 			text-decoration: none;
 
 			&.active {
@@ -1602,6 +1602,10 @@ h1 {
 			background: #fff3ea;
 			top: 100%;
 			align-items: center;
+
+      a {
+        color: $white;
+      }
 
 			&.open-menu {
 				left: 0;
