@@ -46,3 +46,9 @@
     background-color: white;
   }
 }
+
+@media (max-width: 767px) {
+  .address {
+    margin-left: 0.5em;
+  }
+}
