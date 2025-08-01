@@ -1,32 +1,13 @@
 <div class="page-container">
 	<div class="container">
-		<h1 class="page-heading">Orders</h1>
-		@if (isLoggedIn) { @if(orders) {
-		<div class="orders-wrapper">
-			<div *ngFor="let order of orders; let i = index" class="orders">
-				<h2>Order #{{ i + 1 }}</h2>
-				<ul
-					*ngFor="let product of order.products"
-					class="product-summary"
-				>
-					<li>{{ product.name }}</li>
-					<li>{{ product.noOfItems + " X " + product.cost }}</li>
-					<li>
-						{{
-							(product.noOfItems ?? 0) * product.cost
-								| currency : "INR"
-						}}
-					</li>
-				</ul>
-			</div>
+		<div class="header-container">
+			<h1>Account Information</h1>
+			<p class="subtitle">
+				Review your personal information, orders and addresses
+			</p>
 		</div>
-		} @else {
-		<h3>Shop with us and make your first order</h3>
-		<div class="btn-container">
-			<button class="btn btn-primary" routerLink="../home">
-				Shop now
-			</button>
-		</div>
-		} }
+	</div>
+	<div>
+
 	</div>
 </div>

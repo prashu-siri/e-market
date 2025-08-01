@@ -112,6 +112,18 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		this.router.navigate(['../login'], { relativeTo: this.activatedRoute });
 	}
 
+	isShowOrderSummary() {
+		console.log('page name::: ', this.pageName, this.isLoggedIn());
+		if (this.products.length == 0) {
+			return false;
+		} else {
+			return (
+				this.pageName == 'cart' ||
+				(this.pageName == 'shipping' && this.isLoggedIn())
+			);
+		}
+	}
+
 	ngOnDestroy(): void {
 		this.subscription.removeSubscription();
 	}

@@ -6,7 +6,6 @@ import { Observable, Subject } from 'rxjs';
 import { Post } from '../interface/post';
 import { Product } from '../interface/product';
 import { map } from 'rxjs/operators';
-import { NotificationsService } from 'angular2-notifications';
 
 @Injectable({
 	providedIn: 'root',
@@ -20,10 +19,7 @@ export class MarketService {
 	private pageNameSource: Subject<string> = new Subject<string>();
 	pageName$ = this.pageNameSource as Observable<string>;
 
-	constructor(
-		private http: HttpClient,
-		private notificationsService: NotificationsService
-	) {}
+	constructor(private http: HttpClient) {}
 
 	fetchFeaturedProducts(): Observable<Product[]> {
 		const path = this.baseUrl + 'featuredProducts';
@@ -92,18 +88,6 @@ export class MarketService {
 		}
 
 		this.setProducts(this.products);
-		this.notificationsService.success(
-			'Item Added!',
-			`${product.name} is added to cart`,
-			{
-				timeOut: 1000,
-				showProgressBar: false,
-				pauseOnHover: true,
-				clickToClose: false,
-				clickIconToClose: false,
-				preventDuplicates: true,
-			}
-		);
 	}
 
 	addQuantity(product: Product) {

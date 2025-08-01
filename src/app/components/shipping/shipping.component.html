@@ -1,6 +1,7 @@
 <div class="page-container">
 	<div class="container">
 		<h1 class="page-heading">Shipping</h1>
+    @if (isLoggedIn) {
 		<form (ngSubmit)="submit()" [formGroup]="form">
 			<div class="form-horizontal">
 				<app-input
@@ -96,5 +97,22 @@
 				<button class="btn btn-primary">Proceed to Payment</button>
 			</div>
 		</form>
+  }
+  @else {
+<div class="login-container">
+			<div class="icon-bg"><app-icon class="icon-md" name="lock"></app-icon></div>
+			<h2>Login Required</h2>
+			<p class="helper-text">
+				Please login to your account to proceed with checkout and complete the purchase.
+			</p>
+			<div class="btn-container df jc-space-btw btn-wrapper">
+        <button class="btn btn-primary btn-icon">
+				<app-icon name="login"></app-icon>
+				LogIn to Continue
+			</button>
+      <button class="btn btn-secondary" (click)="navigateToHome()">Continue Shopping</button>
+      </div>
+		</div>
+  }
 	</div>
 </div>

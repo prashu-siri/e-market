@@ -1,4 +1,4 @@
-<div class="header">
+<header class="header">
 	<nav>
 		<div class="logo">
 			<a href="#" routerLink="home">
@@ -62,9 +62,9 @@
 		<div>
 			<ul class="df menu-icon">
 				<li>
-					<a href="javascript:">
+					<a href="#" (click)="navigateToProfile($event)">
 						<app-icon name="user" />
-						@if (isLoggedIn()) {
+						<!-- @if (isLoggedIn()) {
 						<ul class="menu-items">
 							<li>
 								<a href="#" routerLink="profile">Your Orders</a>
@@ -83,7 +83,7 @@
 								>
 							</li>
 						</ul>
-						}
+						} -->
 					</a>
 				</li>
 				<li>
@@ -103,4 +103,4 @@
 			</a>
 		</div>
 	</nav>
-</div>
+</header>

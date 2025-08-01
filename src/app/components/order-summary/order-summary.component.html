@@ -29,6 +29,7 @@
 		</div>
 		}
 
+    @if(pageName == 'cart' || (pageName == 'shipping' && isLoggedIn)){}
 		<div class="side-content">
 			<span class="content-label">Subtotal</span>
 			<strong>{{ calculateSubTotal() | currency : "INR" }}</strong>

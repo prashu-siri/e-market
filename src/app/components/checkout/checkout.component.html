@@ -15,8 +15,8 @@
 			></app-shipping>
 			} @case ('payment') {
 			<app-payment class="side-left"></app-payment>
-			}} @if (products.length > 0) {
-			<app-order-summary [pageName]="'cart'"></app-order-summary>
+			}} @if (isShowOrderSummary()) {
+			<app-order-summary></app-order-summary>
 			}
 		</section>
 	</div>

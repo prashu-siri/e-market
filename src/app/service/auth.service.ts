@@ -29,7 +29,8 @@ export class AuthService {
 	}
 
 	getLoggedInUser() {
-		return JSON.parse(sessionStorage.getItem('login') ?? '');
+    let loginDetails = sessionStorage.getItem('login') ?? JSON.stringify('');
+	return JSON.parse(loginDetails);
 	}
 
 	signOut() {

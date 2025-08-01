@@ -35,12 +35,18 @@ export class HeaderComponent implements OnInit {
 	signOut($event: MouseEvent) {
 		$event.preventDefault();
 		this.authService.signOut();
+		this.router.navigate(['home']);
 	}
 
 	navigateToLogin($event: MouseEvent) {
 		$event.preventDefault();
 		this.authService.setCurrentRoute(this.router.routerState.snapshot.url);
 		this.router.navigate(['login'], { relativeTo: this.activatedRoute });
+	}
+
+	navigateToProfile($event: MouseEvent) {
+		$event.preventDefault();
+		this.router.navigate(['profile']);
 	}
 
 	toggleMenu(event: MouseEvent) {

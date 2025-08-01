@@ -76,6 +76,7 @@ export class ProductComponent implements OnInit, OnDestroy {
 		setTimeout(() => {
 			target.innerText = originalText;
 		}, 500);
+    this.service.addToCart(product);
 	}
 
 	search() {

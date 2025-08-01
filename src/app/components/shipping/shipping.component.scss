@@ -1,0 +1,41 @@
+@import "../../../styles/default";
+
+.login-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1.5rem;
+	background: white;
+	margin: 0 auto 3rem;
+	border-radius: 20px;
+	box-shadow: 0 1px 5px rgb(0 0 0 / 0.2);
+}
+
+.icon-bg {
+	background: lightblue;
+	border-radius: 20px;
+	padding: 1rem;
+}
+
+svg#lock {
+	height: 42px;
+	width: 42px;
+}
+
+h2 {
+	font-size: 2.5rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.btn-wrapper {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.helper-text {
+  color: $gray-500;
+}
+

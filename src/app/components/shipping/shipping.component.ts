@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MarketService } from 'src/app/service/market.service';
+import { AuthService } from './../../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-shipping',
@@ -14,17 +16,29 @@ export class ShippingComponent implements OnInit {
 	@Input()
 	states!: any[];
 
+	isLoggedIn: boolean = false;
+
 	addressTypes: any[] = [
 		{ code: 'res', name: 'Residential' },
 		{ code: 'bus', name: 'Business' },
 	];
 
-	constructor(private service: MarketService) {}
+	constructor(
+		private service: MarketService,
+		private authService: AuthService,
+		private router: Router
+	) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.isLoggedIn = this.authService.isLoggedIn();
+	}
 
 	navigateToPreviousPage() {
 		this.service.setpageName('cart');
+	}
+
+	navigateToHome() {
+		this.router.navigate(['home']);
 	}
 
 	submit() {

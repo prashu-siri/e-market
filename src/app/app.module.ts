@@ -25,10 +25,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './service/auth.service';
 import { HeaderInterceptor } from './service/header.interceptor';
 import { MarketService } from './service/market.service';
-import {
-	NotificationsService,
-	SimpleNotificationsModule,
-} from 'angular2-notifications';
 import { AlertComponent } from './components/alert/alert.component';
 import { InputComponent } from './components/input/input.component';
 import { IconComponent } from './components/icon/icon.component';
@@ -71,7 +67,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		AppRoutingModule,
 		FormsModule,
 		HttpClientModule,
-		SimpleNotificationsModule.forRoot(),
 		ReactiveFormsModule,
 		CommonModule,
 		NgxMaskDirective,
@@ -85,7 +80,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 			multi: true,
 		},
 		AuthService,
-		NotificationsService,
 		provideNgxMask(),
 	],
 	bootstrap: [AppComponent],
