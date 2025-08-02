@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Alert } from 'src/app/interface/alert';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { MarketService } from 'src/app/service/market.service';
 
 @Component({
 	selector: 'app-sign-in',
@@ -14,18 +15,18 @@ export class SignInComponent implements OnInit {
 	signInForm!: FormGroup;
 	signUpForm!: FormGroup;
 	alert: Alert = {} as Alert;
-	tabs: any = {
-		login: true,
-		signUp: false,
-	};
+	isSignUp: boolean = false;
 
 	constructor(
 		private authService: AuthService,
 		private fb: FormBuilder,
 		private route: Router,
 		private activatedRoute: ActivatedRoute,
-		private title: Title
+		private title: Title,
+		private service: MarketService
 	) {}
+
+	@Output() loginSuccess = new EventEmitter<MouseEvent>();
 
 	ngOnInit(): void {
 		this.title.setTitle('Purilo | Login');
@@ -55,17 +56,16 @@ export class SignInComponent implements OnInit {
 	}
 
 	login() {
+		this.clearErrors();
 		if (this.signInForm.invalid) {
 			this.signInForm.markAllAsTouched();
 		} else {
 			this.authService
-				.login(this.signInForm.value)
+				.login(this.signInForm.value, 'login')
 				.subscribe((response) => {
 					if (response) {
 						this.authService.setLogin(response);
-						this.route.navigate([this.getRouteToNavigate()], {
-							relativeTo: this.activatedRoute,
-						});
+						this.loginSuccess.emit();
 					} else {
 						this.alert = {
 							isSuccessMessage: false,
@@ -80,28 +80,29 @@ export class SignInComponent implements OnInit {
 	}
 
 	checkIfEmailExist() {
-		this.authService.login(this.signUpForm.value).subscribe((response) => {
-			if (response) {
-				this.alert = {
-					isErrorMessage: true,
-					message: 'Email Id already exists.',
-				};
-			} else {
-				this.authService
-					.signUp(this.signUpForm.value)
-					.subscribe((response) => {
-						console.log('Sign up successful');
-						//redirect to home page or to previous page
-						this.authService.setLogin(response);
-						this.route.navigate([this.getRouteToNavigate()], {
-							relativeTo: this.activatedRoute,
+		this.authService
+			.login(this.signUpForm.value, 'checkEmail')
+			.subscribe((response) => {
+				if (response) {
+					this.alert = {
+						isErrorMessage: true,
+						message: 'Email Id already exists.',
+					};
+				} else {
+					console.log('email already exists but signing up');
+					this.authService
+						.signUp(this.signUpForm.value)
+						.subscribe((response) => {
+							//redirect to home page or to previous page
+							this.authService.setLogin(response);
+							this.loginSuccess.emit();
 						});
-					});
-			}
-		});
+				}
+			});
 	}
 
 	signUp() {
+		this.clearErrors();
 		if (this.signUpForm.invalid) {
 			this.signUpForm.markAllAsTouched();
 			return;
@@ -112,20 +113,36 @@ export class SignInComponent implements OnInit {
 
 	activateTab($event: MouseEvent, id: string) {
 		$event.preventDefault();
+		this.clearErrors();
+
+		if (id == 'signup') {
+			this.isSignUp = true;
+			this.service.mode.set('signup');
+		} else {
+			this.isSignUp = false;
+			this.service.mode.set('login');
+		}
+	}
+
+	clearErrors() {
 		this.alert = {
 			isErrorMessage: false,
 			isSuccessMessage: false,
 		};
-
-		const keys = Object.keys(this.tabs);
-		keys.map((key) => {
-			this.tabs[key] = key.toString() === id;
-		});
 	}
 
 	getRouteToNavigate() {
 		return this.authService.currentRoute
 			? this.authService.currentRoute
 			: 'home';
+	}
+
+	closeModal($event: MouseEvent) {
+		if ($event) {
+			$event.preventDefault();
+		}
+		this.loginSuccess.emit();
+		this.isSignUp = false;
+		this.service.mode.set('login');
 	}
 }

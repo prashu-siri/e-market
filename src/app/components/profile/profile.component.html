@@ -6,8 +6,76 @@
 				Review your personal information, orders and addresses
 			</p>
 		</div>
-	</div>
-	<div>
+		<section class="profile-container">
+			<div class="profile-wrapper">
+				<div class="profile">
+					<div class="profile-picture">
+						<app-icon name="user"></app-icon>
+					</div>
+					<div>
+						<h3>
+							{{ loggedInUser.firstName }}
+							{{ loggedInUser.lastName }}
+						</h3>
+						<p>{{ loggedInUser.email }}</p>
+					</div>
+				</div>
+				<div class="profile-items">
+					<ul>
+						<li [class.active]="tab == 'orders'">
+							<app-icon name="truck"></app-icon>
+							<a href="#" (click)="changeTab($event, 'orders')"
+								>My Orders</a
+							>
+						</li>
+						<li [class.active]="tab == 'address'">
+							<app-icon name="address"></app-icon>
+							<a href="#" (click)="changeTab($event, 'address')"
+								>Addresses</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<section class="order-wrapper">
+				@if (tab == 'orders') {
+				<div>
+					<h2>Order History</h2>
+					<p class="subtext">Track and view past orders</p>
 
+					@for (order of orders; track $index) {
+					<div class="order-item">
+						<div>
+							<h3>Order #{{ order.orderId }}</h3>
+							<div class="order-item-text">
+								<p [ngClass]="'status ' + getStatusClass(order.status)">{{ order.status }}</p>
+								<p>{{ calculateTotalCost(order.products) | currency: 'INR'}}</p>
+							</div>
+						</div>
+						<div class="order-details-btn">
+							<button class="btn btn-primary btn-icon">
+                <app-icon name="eye"></app-icon>
+								View Details
+							</button>
+						</div>
+            <div class="order-item-footer">
+              <div class="df ai-center">
+                <app-icon name="calendar"></app-icon>
+                <p>Delivered on {{order.orderedOn}}</p>
+              </div>
+              <div class="df ai-center">
+                <app-icon name="cart"></app-icon>
+                {{order.products.length}}
+              </div>
+            </div>
+					</div>
+					}
+				</div>
+				} @else if (tab == 'address') {
+				<div>Display addressses</div>
+				}
+			</section>
+		</section>
 	</div>
+	<div></div>
 </div>

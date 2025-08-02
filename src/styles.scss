@@ -1,5 +1,8 @@
 //@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=National+Park:wght@200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import "styles/helper";
 @import "styles/spinner";
 @import "styles/radio";
@@ -17,7 +20,7 @@ body {
 	margin: 0;
 	font-family: $primaryfont;
 	color: $text-primary;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 	overflow-x: hidden;
 	height: 100vh;
@@ -94,6 +97,7 @@ button svg {
 	width: 18px;
 	fill: white;
 	margin-right: 0;
+  display: flex;
 }
 
 .icon svg {
@@ -113,6 +117,18 @@ button svg {
 .progress svg {
 	width: 100px;
 	height: 100px;
+}
+
+.profile-picture svg {
+	fill: white;
+	margin-right: 0;
+	height: 32px;
+	width: 32px;
+}
+
+.profile-items li.active svg {
+  fill: white;
+  stroke-width: 5;
 }
 
 ul {
@@ -289,19 +305,19 @@ h1 {
 		color: white;
 		margin: 0;
 		font-size: 0.95rem;
-		font-weight: 700;
+		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s ease;
-    box-shadow: $shadow-md;
+		box-shadow: $shadow-md;
 
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0 0 0 / 0.25);
-    }
+		&:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 5px 15px rgba(0 0 0 / 0.25);
+		}
 	}
 
 	.btn-primary {
-		background: $primary-clr;
+		background: $bg-gradient-primary;
 	}
 
 	.btn-secondary {
@@ -388,7 +404,8 @@ h1 {
 	}
 
 	.form-label {
-		margin-bottom: 1em;
+		margin-bottom: 0.25rem;
+		font-weight: 500;
 	}
 
 	.form-input {
@@ -441,7 +458,7 @@ h1 {
 		}
 
 		.nav-menu a {
-			padding: 1.25em 1em;
+			padding: 1em;
 
 			&:not(.active):hover {
 				background: rgba(0 0 0 / 0.025);
@@ -496,60 +513,6 @@ h1 {
 
 		.hamburger {
 			display: none;
-		}
-	}
-
-	/******* LOGIN **********/
-	.login-page {
-		background: url(https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=931&q=80)
-			no-repeat center center fixed;
-		background-size: cover;
-		margin-top: 4em;
-		padding-bottom: 4em;
-	}
-
-	.tab-group {
-		padding: 2em 0;
-		display: grid;
-		grid-auto-flow: column;
-		grid-template-columns: 50% 30%;
-
-		ul {
-			grid-column: 2/3;
-			place-content: center;
-			display: flex;
-			gap: 3em;
-		}
-
-		a {
-			display: inline-block;
-			padding: 1em;
-			color: $text-primary;
-
-			&.active {
-				color: $primary-clr;
-				border-bottom: 3px solid;
-			}
-		}
-	}
-
-	.tab-content-container {
-		display: grid;
-		grid-auto-flow: column;
-		grid-template-columns: 50% 30%;
-		gap: 0 4em;
-
-		& > * {
-			grid-column: 2/3;
-		}
-
-		.tab-content {
-			height: 74vh;
-		}
-
-		button {
-			width: 100%;
-			justify-content: center;
 		}
 	}
 
@@ -1196,8 +1159,8 @@ h1 {
 			.btn-coupon {
 				border: 1px solid #b8b8b8;
 				background: transparent;
-				padding: 0.8em 0.5em;
-				color: grey;
+				padding: 0.5rem;
+				color: $gray-500;
 			}
 		}
 

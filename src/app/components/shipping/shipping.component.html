@@ -1,7 +1,7 @@
 <div class="page-container">
 	<div class="container">
 		<h1 class="page-heading">Shipping</h1>
-    @if (isLoggedIn) {
+		@if (isLoggedIn()) {
 		<form (ngSubmit)="submit()" [formGroup]="form">
 			<div class="form-horizontal">
 				<app-input
@@ -20,22 +20,22 @@
 				></app-input>
 			</div>
 
-      <div class="form-horizontal">
-        <app-input
-          [form]="form"
-          fieldName="email"
-          formControlName="email"
-          id="email"
-          label="Email"
-        ></app-input>
-        <app-input
-          [form]="form"
-          fieldName="phoneNumber"
-          formControlName="phoneNumber"
-          id="phoneNumber"
-          label="Phone Number"
-        ></app-input>
-      </div>
+			<div class="form-horizontal">
+				<app-input
+					[form]="form"
+					fieldName="email"
+					formControlName="email"
+					id="email"
+					label="Email"
+				></app-input>
+				<app-input
+					[form]="form"
+					fieldName="phoneNumber"
+					formControlName="phoneNumber"
+					id="phoneNumber"
+					label="Phone Number"
+				></app-input>
+			</div>
 			<app-input
 				[form]="form"
 				fieldName="address"
@@ -77,7 +77,7 @@
 					id="postalCode"
 					label="Postal Code"
 				></app-input>
-        <app-select
+				<app-select
 					[form]="form"
 					[items]="addressTypes"
 					fieldId="addressType"
@@ -97,22 +97,33 @@
 				<button class="btn btn-primary">Proceed to Payment</button>
 			</div>
 		</form>
-  }
-  @else {
-<div class="login-container">
-			<div class="icon-bg"><app-icon class="icon-md" name="lock"></app-icon></div>
+		} @else {
+		<div class="login-container">
+			<div class="icon-bg">
+				<app-icon class="icon-md" name="lock"></app-icon>
+			</div>
 			<h2>Login Required</h2>
 			<p class="helper-text">
-				Please login to your account to proceed with checkout and complete the purchase.
+				Please login to your account to proceed with checkout and
+				complete the purchase.
 			</p>
 			<div class="btn-container df jc-space-btw btn-wrapper">
-        <button class="btn btn-primary btn-icon">
-				<app-icon name="login"></app-icon>
-				LogIn to Continue
-			</button>
-      <button class="btn btn-secondary" (click)="navigateToHome()">Continue Shopping</button>
-      </div>
+				<button
+					class="btn btn-primary btn-icon"
+					(click)="openLoginModal()"
+				>
+					<app-icon name="login"></app-icon>
+					LogIn to Continue
+				</button>
+				<button class="btn btn-secondary" (click)="navigateToHome()">
+					Continue Shopping
+				</button>
+			</div>
 		</div>
-  }
+		}
 	</div>
 </div>
+
+<app-modal [isPrimaryButtonVisible]="false" [isSecondaryButtonVisible]="false">
+	<app-sign-in (loginSuccess)="handleLoginSuccess($event)"></app-sign-in>
+</app-modal>

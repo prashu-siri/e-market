@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+	Component,
+	computed,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+} from '@angular/core';
+import { MarketService } from 'src/app/service/market.service';
 
 @Component({
 	selector: 'app-modal',
@@ -6,20 +14,25 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 	styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-	@Input() modalHeader: string = '';
-	@Input() isPrimaryButtonVisible: boolean = true;
-	@Input() isSecondaryButtonVisible: boolean = true;
+	@Input() isPrimaryButtonVisible: boolean = false;
+	@Input() isSecondaryButtonVisible: boolean = false;
 	@Input() primaryButtonText: string = '';
 	@Input() secondaryButtonText: string = '';
 
 	@Output() submittedValue: EventEmitter<MouseEvent> = new EventEmitter();
 
-	constructor() {}
+	constructor(private service: MarketService) {}
+
+	modalHeader = computed(() =>
+		this.service.mode() === 'login'
+			? 'Login to Your Account'
+			: 'Create Your Account'
+	);
 
 	ngOnInit(): void {}
 
 	openModal() {
-		document.querySelector('#modal-info')?.classList.add('open');
+		document.querySelector('#modal-popup')?.classList.add('open');
 	}
 
 	emitValue(event: MouseEvent) {
@@ -27,8 +40,11 @@ export class ModalComponent implements OnInit {
 	}
 
 	closeModal(event: MouseEvent) {
-		event.preventDefault();
-		document.querySelector('#modal-info')?.classList.remove('open');
+		if (event) {
+			event.preventDefault();
+		}
+
+		document.querySelector('#modal-popup')?.classList.remove('open');
 	}
 
 	applyClass() {
