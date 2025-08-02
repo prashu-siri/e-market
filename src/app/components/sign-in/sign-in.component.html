@@ -1,36 +1,7 @@
-<div class="header">
-	<nav>
-		<div class="logo">
-			<img alt="" src="assets/img/e-market/logo.png" />
-		</div>
-	</nav>
-</div>
 <div class="login-page">
-	<div class="tab-group">
-		<ul>
-			<li>
-				<a
-					(click)="activateTab($event, 'login')"
-					[class.active]="tabs.login"
-					href="#"
-				>
-					Login
-				</a>
-			</li>
-			<li>
-				<a
-					(click)="activateTab($event, 'signUp')"
-					[class.active]="tabs.signUp"
-					href="#"
-					>Sign Up
-				</a>
-			</li>
-		</ul>
-	</div>
-
-	<div class="tab-content-container">
+	<div>
 		<app-alert [alertDetails]="alert"></app-alert>
-		<div *ngIf="tabs.login" class="tab-content login-tab-content">
+		<div *ngIf="!isSignUp">
 			<form (ngSubmit)="login()" [formGroup]="signInForm">
 				<app-input
 					[form]="signInForm"
@@ -47,26 +18,43 @@
 					label="Password"
 					type="password"
 				></app-input>
-				<button class="btn btn-primary">Login In</button>
+				<div class="btn-wrapper">
+					<button
+						class="btn btn-outline"
+						(click)="closeModal($event)"
+					>
+						Cancel
+					</button>
+					<button class="btn btn-primary">Login</button>
+				</div>
 			</form>
+			<div class="footer">
+				Don't have an account?
+				<a href="#" (click)="activateTab($event, 'signup')"
+					>Sign up here</a
+				>
+			</div>
 		</div>
 
-		<div *ngIf="tabs.signUp" class="tab-content">
+		<div *ngIf="isSignUp">
 			<form (ngSubmit)="signUp()" [formGroup]="signUpForm">
-				<app-input
-					[form]="signUpForm"
-					fieldName="firstName"
-					formControlName="firstName"
-					id="firstName"
-					label="First Name"
-				></app-input>
-				<app-input
-					[form]="signUpForm"
-					fieldName="lastName"
-					formControlName="lastName"
-					id="lastName"
-					label="Last Name"
-				></app-input>
+				<div class="form-horizontal">
+					<app-input
+						[form]="signUpForm"
+						fieldName="firstName"
+						formControlName="firstName"
+						id="firstName"
+						label="First Name"
+					></app-input>
+					<app-input
+						[form]="signUpForm"
+						fieldName="lastName"
+						formControlName="lastName"
+						id="lastName"
+						label="Last Name"
+					></app-input>
+				</div>
+
 				<app-input
 					[form]="signUpForm"
 					fieldName="email"
@@ -82,8 +70,22 @@
 					label="Password"
 					type="password"
 				></app-input>
-				<button class="btn btn-primary">Sign Up</button>
+				<div class="btn-wrapper">
+					<button
+						class="btn btn-outline"
+						(click)="closeModal($event)"
+					>
+						Cancel
+					</button>
+					<button class="btn btn-primary">Sign Up</button>
+				</div>
 			</form>
+			<div class="footer">
+				Already have an account?
+				<a href="#" (click)="activateTab($event, 'login')"
+					>Login here</a
+				>
+			</div>
 		</div>
 	</div>
 </div>

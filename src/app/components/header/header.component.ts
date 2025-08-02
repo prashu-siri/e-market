@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MarketService } from '../../service/market.service';
 import { AuthService } from '../../service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
 	selector: 'app-header',
@@ -17,6 +18,9 @@ export class HeaderComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private router: Router
 	) {}
+
+	@ViewChild(ModalComponent)
+	modal!: ModalComponent;
 
 	ngOnInit(): void {
 		this.service.productAdded$.subscribe((response) => {
@@ -44,14 +48,28 @@ export class HeaderComponent implements OnInit {
 		this.router.navigate(['login'], { relativeTo: this.activatedRoute });
 	}
 
-	navigateToProfile($event: MouseEvent) {
+	navigateToPage($event: MouseEvent) {
 		$event.preventDefault();
-		this.router.navigate(['profile']);
+
+		if (this.isLoggedIn()) {
+			this.router.navigate(['profile']);
+		} else {
+			this.modal.openModal();
+		}
+	}
+
+	getFullName() {
+		const loggedInUser = this.authService.getLoggedInUser();
+		return loggedInUser.firstName + ' ' + loggedInUser.lastName;
 	}
 
 	toggleMenu(event: MouseEvent) {
 		event.preventDefault();
 		const navMenu = document.querySelector('#nav-menu');
 		navMenu?.classList.toggle('open-menu');
+	}
+
+	handleLoginSuccess($event: MouseEvent) {
+		this.modal.closeModal($event);
 	}
 }

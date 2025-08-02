@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MarketService } from 'src/app/service/market.service';
 import { AuthService } from './../../service/auth.service';
 import { Router } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
 	selector: 'app-shipping',
@@ -16,12 +17,13 @@ export class ShippingComponent implements OnInit {
 	@Input()
 	states!: any[];
 
-	isLoggedIn: boolean = false;
-
 	addressTypes: any[] = [
 		{ code: 'res', name: 'Residential' },
 		{ code: 'bus', name: 'Business' },
 	];
+
+	@ViewChild(ModalComponent)
+	modal!: ModalComponent;
 
 	constructor(
 		private service: MarketService,
@@ -29,12 +31,22 @@ export class ShippingComponent implements OnInit {
 		private router: Router
 	) {}
 
-	ngOnInit(): void {
-		this.isLoggedIn = this.authService.isLoggedIn();
+	ngOnInit(): void {}
+
+	isLoggedIn() {
+		return this.authService.isLoggedIn();
+	}
+
+	handleLoginSuccess(event: MouseEvent) {
+		this.modal.closeModal(event);
 	}
 
 	navigateToPreviousPage() {
 		this.service.setpageName('cart');
+	}
+
+	openLoginModal() {
+		this.modal.openModal();
 	}
 
 	navigateToHome() {
@@ -44,6 +56,7 @@ export class ShippingComponent implements OnInit {
 	submit() {
 		if (this.form.valid) {
 			this.service.setpageName('payment');
+			this.service.setAddress(this.form.value);
 		} else {
 			this.form.markAllAsTouched();
 		}

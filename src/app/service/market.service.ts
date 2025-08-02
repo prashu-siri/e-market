@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Review } from '../interface/review';
@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { Post } from '../interface/post';
 import { Product } from '../interface/product';
 import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,7 +20,11 @@ export class MarketService {
 	private pageNameSource: Subject<string> = new Subject<string>();
 	pageName$ = this.pageNameSource as Observable<string>;
 
-	constructor(private http: HttpClient) {}
+	shippingAdress: any;
+
+	mode = signal<'login' | 'signup'>('login');
+
+	constructor(private http: HttpClient, private authService: AuthService) {}
 
 	fetchFeaturedProducts(): Observable<Product[]> {
 		const path = this.baseUrl + 'featuredProducts';
@@ -143,19 +148,20 @@ export class MarketService {
 		return this.http.get(path);
 	}
 
-	placeOrder(
-		products: Product[],
-		shipping: any,
-		billing: any,
-		customer: any
-	) {
+	setAddress(address: any) {
+		this.shippingAdress = address;
+	}
+
+	placeOrder() {
 		const path = this.baseUrl + 'orders';
 
 		const params = {
-			products: products,
-			shipping: shipping,
-			billing: billing,
-			email: customer.email,
+			orderId: 'POS' + new Date(),
+			status: 'Delivered',
+			orderedOn: new Date().toUTCString(),
+			products: this.products,
+			shipping: this.shippingAdress,
+			email: this.authService.getLoggedInUser().email,
 		};
 
 		return this.http.post(path, JSON.stringify(params));

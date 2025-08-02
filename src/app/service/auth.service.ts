@@ -29,15 +29,16 @@ export class AuthService {
 	}
 
 	getLoggedInUser() {
-    let loginDetails = sessionStorage.getItem('login') ?? JSON.stringify('');
-	return JSON.parse(loginDetails);
+		let loginDetails =
+			sessionStorage.getItem('login') ?? JSON.stringify('');
+		return JSON.parse(loginDetails);
 	}
 
 	signOut() {
 		sessionStorage.removeItem('login');
 	}
 
-	login(value: any) {
+	login(value: any, action: string) {
 		const requestParams = new HttpParams().set('email', value.email);
 		return this.http
 			.get<Login[]>(this.basePath + 'marketLogin', {
@@ -46,7 +47,10 @@ export class AuthService {
 			.pipe(
 				map((response: Login[]) => {
 					if (response.length > 0) {
-						this.setLogin(response[0]);
+						if (action == 'login') {
+							this.setLogin(response[0]);
+						}
+
 						return response[0];
 					} else {
 						return null;

@@ -62,28 +62,11 @@
 		<div>
 			<ul class="df menu-icon">
 				<li>
-					<a href="#" (click)="navigateToProfile($event)">
+					<a href="#" (click)="navigateToPage($event)">
 						<app-icon name="user" />
-						<!-- @if (isLoggedIn()) {
-						<ul class="menu-items">
-							<li>
-								<a href="#" routerLink="profile">Your Orders</a>
-							</li>
-							<li>
-								<a (click)="signOut($event)" href="#"
-									>Sign out</a
-								>
-							</li>
-						</ul>
-						}@else{
-						<ul class="menu-items">
-							<li>
-								<a (click)="navigateToLogin($event)" href="#"
-									>Sign In</a
-								>
-							</li>
-						</ul>
-						} -->
+            @if (isLoggedIn()) {
+              <span>Hi!, {{getFullName()}}</span>
+            }
 					</a>
 				</li>
 				<li>
@@ -94,6 +77,13 @@
 						}}</span>
 					</a>
 				</li>
+        @if(isLoggedIn()) {
+          <li>
+            <a href="#" routerLink="checkout" (click)="signOut($event)">
+						  <app-icon name="logout" />
+					  </a>
+          </li>
+        }
 			</ul>
 		</div>
 
@@ -104,3 +94,7 @@
 		</div>
 	</nav>
 </header>
+
+<app-modal modalHeader="Login to your account">
+  <app-sign-in (loginSuccess)="handleLoginSuccess($event)"></app-sign-in>
+</app-modal>

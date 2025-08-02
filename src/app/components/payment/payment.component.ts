@@ -100,6 +100,8 @@ export class PaymentComponent implements OnInit {
 			this.router.navigate(['confirmation']);
 			this.service.setProducts([]);
 		}
+
+    this.service.placeOrder();
 	}
 
 	get cardNumber(): FormControl {
