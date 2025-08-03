@@ -3,7 +3,7 @@
 		@if (hasProducts()) {
 		<h1 class="page-heading">Cart</h1>
 		<div class="cart-container cart-lg">
-			@for (product of products; track $index) {
+			@for (product of products(); track $index) {
 			<div class="cart-items">
 				<div class="grid-1">
 					<span class="image-wrapper">
@@ -56,7 +56,7 @@
 
     <!-- For mobile screens -->
 		<div class="cart-sm dfc">
-			@for (product of products; track $index) {
+			@for (product of products(); track $index) {
 			<div class="df cart-sm__card">
 				<img [src]="product.imageUrl" alt="" class="icon-xs" />
 				<div class="cart-sm__details">

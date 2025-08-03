@@ -15,10 +15,8 @@ export class MarketService {
 	baseUrl: string = environment.apiUrl;
 	blogPosts: Post[] = [];
 	products: Product[] = [];
-	private productAddedSource: Subject<Product[]> = new Subject<Product[]>();
-	productAdded$ = this.productAddedSource as Observable<Product[]>;
-	private pageNameSource: Subject<string> = new Subject<string>();
-	pageName$ = this.pageNameSource as Observable<string>;
+	cartProducts = signal<Product[]>([]);
+	pageName = signal<string>('');
 
 	shippingAdress: any;
 
@@ -78,50 +76,57 @@ export class MarketService {
 	}
 
 	addToCart(product: Product) {
-		product.noOfItems = product.quantity;
-		if (this.products.length > 0) {
-			const itemFound = this.products.find((details) => {
-				return details.id == product.id;
-			});
+		this.cartProducts.update((currentProducts) => {
+			if (currentProducts.length > 0) {
+				let existingProduct = currentProducts.find(
+					(p) => p.id === product.id
+				);
 
-			let item = itemFound?.noOfItems ?? 0;
-			let quantity = product.quantity ?? 0;
-
-			itemFound ? (item += quantity) : this.products.push(product);
-		} else {
-			this.products.push(product);
-		}
-
-		this.setProducts(this.products);
+				if (existingProduct) {
+					return currentProducts.map((p) =>
+						p.id === product.id
+							? { ...p, quantity: (p.quantity || 0) + 1 }
+							: p
+					);
+				} else {
+					return [...currentProducts, product];
+				}
+			}
+			return [product];
+		});
 	}
 
 	addQuantity(product: Product) {
-		this.products = this.products.map((details) => {
-			if (details.id == product.id) {
-				details.quantity = (details?.quantity ?? 0) + 1;
-			}
+		this.cartProducts.update(() => {
+			return this.cartProducts().map((cartProduct: Product) => {
+				if (cartProduct.id == product.id) {
+					cartProduct.quantity = (product?.quantity ?? 0) + 1;
+				}
 
-			return details;
+				return cartProduct;
+			});
 		});
-
-		this.setProducts(this.products);
-		return this.products;
 	}
 
 	removeQuantity(product: Product) {
-		this.products = this.products.map((details) => {
-			if (details.id == product.id) {
-				details.quantity =
-					(details?.quantity ?? 0) - 1 <= 0
-						? 1
-						: (details?.quantity ?? 0) - 1;
-			}
+		this.cartProducts.update(() => {
+			return this.cartProducts().map((cartProduct) => {
+				if (cartProduct.id == product.id) {
+					cartProduct.quantity =
+						(cartProduct?.quantity ?? 0) - 1 <= 0
+							? 1
+							: (cartProduct?.quantity ?? 0) - 1;
+				}
 
-			return details;
+				return cartProduct;
+			});
 		});
+	}
 
-		this.setProducts(this.products);
-		return this.products;
+	removeItemFromCart(product: Product) {
+		this.cartProducts.update((currentProducts) => {
+			return currentProducts.filter((p) => p.id != product.id);
+		});
 	}
 
 	getProducts(): string {
@@ -129,17 +134,11 @@ export class MarketService {
 	}
 
 	setProducts(products: Product[]) {
-		this.products = products;
-		sessionStorage.setItem('products', JSON.stringify(products));
-		this.sendNotification();
+		this.cartProducts.set(products);
 	}
 
 	removeProducts() {
 		sessionStorage.removeItem('products');
-	}
-
-	sendNotification(): void {
-		this.productAddedSource.next(this.products);
 	}
 
 	fetchStates() {
@@ -174,6 +173,6 @@ export class MarketService {
 	}
 
 	setpageName(pageName: string) {
-		this.pageNameSource.next(pageName);
+		this.pageName.update(() => pageName);
 	}
 }

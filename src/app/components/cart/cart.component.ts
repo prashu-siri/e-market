@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { MarketService } from '../../service/market.service';
 import { Product } from '../../interface/product';
 import { Title } from '@angular/platform-browser';
@@ -9,34 +9,28 @@ import { Title } from '@angular/platform-browser';
 	styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-	products: Product[] = [];
+	products = computed(() => this.service.cartProducts());
 
 	constructor(private service: MarketService, private title: Title) {}
 
 	ngOnInit(): void {
 		this.title.setTitle('Purilo | Cart');
-		const products = this.service.getProducts();
-		this.products = products ? JSON.parse(products) : [];
 		this.service.setpageName('cart');
 	}
 
 	removeItem($event: MouseEvent, productDetails: Product) {
 		$event.preventDefault();
-		this.products = this.products.filter((product) => {
-			return product.id != productDetails.id;
-		});
-
-		this.service.setProducts(this.products);
+		this.service.removeItemFromCart(productDetails);
 	}
 
 	addQuantity($event: MouseEvent, product: Product) {
 		$event.preventDefault();
-		this.products = this.service.addQuantity(product);
+		this.service.addQuantity(product);
 	}
 
 	removeQuantity($event: MouseEvent, product: Product) {
 		$event.preventDefault();
-		this.products = this.service.removeQuantity(product);
+		this.service.removeQuantity(product);
 	}
 
 	getItemCost(product: Product) {
@@ -44,6 +38,6 @@ export class CartComponent implements OnInit {
 	}
 
 	hasProducts() {
-		return this.products?.length > 0;
+		return this.products()?.length > 0;
 	}
 }

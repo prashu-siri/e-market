@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, Input, OnInit } from '@angular/core';
 import { Product } from '../../interface/product';
 import { MarketService } from '../../service/market.service';
 
@@ -8,8 +8,7 @@ import { MarketService } from '../../service/market.service';
 	styleUrls: ['./order-summary.component.scss'],
 })
 export class OrderSummaryComponent implements OnInit {
-	products: Product[] = [];
-	pageName: string = 'cart';
+	pageName = computed(() => this.service.pageName());
 	totalCost: number = 0;
 	discount: number = 0;
 	isInvalidCoupon: boolean = false;
@@ -28,30 +27,16 @@ export class OrderSummaryComponent implements OnInit {
 	couponCode: string = '';
 	isLoggedIn: boolean = false;
 
+	products = computed(() => this.service.cartProducts());
+
 	constructor(private service: MarketService) {}
 
-	ngOnInit(): void {
-		const products = this.service.getProducts();
-		this.products = products ? JSON.parse(products) : [];
-		this.service.pageName$.subscribe(
-			(pageName) => (this.pageName = pageName)
-		);
-
-		console.log(
-			'🚀 ~ OrderSummaryComponent ~ ngOnInit ~ pageName:',
-			this.pageName
-		);
-
-		this.service.productAdded$.subscribe((products) => {
-			this.discount = 0;
-			this.products = products;
-		});
-	}
+	ngOnInit(): void {}
 
 	calculateSubTotal(): number {
 		this.totalCost = 0;
 
-		this.products.forEach((product) => {
+		this.products().forEach((product) => {
 			this.totalCost =
 				this.totalCost + product.cost * (product.quantity ?? 0);
 		});
@@ -80,11 +65,9 @@ export class OrderSummaryComponent implements OnInit {
 	}
 
 	navigateTonextpage() {
-		if (this.pageName == 'cart') {
-			this.pageName = 'shipping';
+		if (this.pageName() == 'cart') {
 			this.service.setpageName('shipping');
 		} else {
-			this.pageName = 'payment';
 			this.service.setpageName('payment');
 		}
 	}

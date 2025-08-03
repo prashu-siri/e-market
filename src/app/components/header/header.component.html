@@ -73,7 +73,7 @@
 					<a href="#" routerLink="checkout">
 						<app-icon name="cart" />
 						<span *ngIf="hasItems()" class="badge">{{
-							numberOfItems
+							numberOfItems()
 						}}</span>
 					</a>
 				</li>

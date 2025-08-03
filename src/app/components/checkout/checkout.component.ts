@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit } from '@angular/core';
 import { MarketService } from '../../service/market.service';
 import { Product } from '../../interface/product';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { Title } from '@angular/platform-browser';
 	styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
-	products: Product[] = [];
+	products = computed(() => this.service.cartProducts());
 	totalCost: number = 0;
 	shippingForm!: FormGroup;
 	billingForm!: FormGroup;
@@ -25,7 +25,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	subscription = new SubscriptionContainer();
 	success: boolean = false;
 	showCheckout: boolean = true;
-	pageName: string = 'cart';
+	pageName = computed(() => this.service.pageName());
 
 	constructor(
 		private service: MarketService,
@@ -37,13 +37,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.title.setTitle('Purilo | Checkout');
-		const products = this.service.getProducts();
-		this.products = products ? JSON.parse(products) : [];
 		this.getStates();
-
-		this.service.pageName$.subscribe((pageName) => {
-			this.pageName = pageName;
-		});
 
 		this.customerForm = new FormGroup({
 			email: new FormControl('', [
@@ -82,7 +76,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
 	calculateTotalCost() {
 		this.totalCost = 0;
-		this.products.forEach((product) => {
+		this.products().forEach((product) => {
 			this.totalCost =
 				this.totalCost + product.cost * (product.noOfItems ?? 0);
 		});
@@ -113,13 +107,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	}
 
 	isShowOrderSummary() {
-		console.log('page name::: ', this.pageName, this.isLoggedIn());
 		if (this.products.length == 0) {
 			return false;
 		} else {
 			return (
-				this.pageName == 'cart' ||
-				(this.pageName == 'shipping' && this.isLoggedIn())
+				this.pageName() == 'cart' ||
+				(this.pageName() == 'shipping' && this.isLoggedIn())
 			);
 		}
 	}
