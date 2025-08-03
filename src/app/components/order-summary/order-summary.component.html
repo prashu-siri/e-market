@@ -1,8 +1,8 @@
-@if (products.length > 0) {
+@if (products().length > 0) {
 <div class="order-summary page-container">
 	<h2>Order Summary</h2>
 	<div>
-		@if (pageName == 'cart') {
+		@if (pageName() == 'cart') {
 		<div class="coupon-container">
 			<div class="coupon-wrapper">
 				<input
@@ -29,7 +29,7 @@
 		</div>
 		}
 
-    @if(pageName == 'cart' || (pageName == 'shipping' && isLoggedIn)){}
+    @if(pageName() == 'cart' || (pageName() == 'shipping' && isLoggedIn)){}
 		<div class="side-content">
 			<span class="content-label">Subtotal</span>
 			<strong>{{ calculateSubTotal() | currency : "INR" }}</strong>
@@ -50,7 +50,7 @@
 	<button
 		class="btn btn-primary"
 		(click)="navigateTonextpage()"
-		*ngIf="pageName == 'cart'"
+		*ngIf="pageName() == 'cart'"
 	>
 		Checkout
 	</button>

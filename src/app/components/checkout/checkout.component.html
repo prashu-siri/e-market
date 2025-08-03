@@ -5,7 +5,7 @@
 		<app-alert [alertDetails]="alert"></app-alert>
 
 		<section class="side-layout-flex">
-			@switch (pageName) { @case ('cart') {
+			@switch (pageName()) { @case ('cart') {
 			<app-cart class="side-left"></app-cart>
 			} @case('shipping') {
 			<app-shipping

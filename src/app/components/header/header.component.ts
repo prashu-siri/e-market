@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, computed, effect, OnInit, ViewChild } from '@angular/core';
 import { MarketService } from '../../service/market.service';
 import { AuthService } from '../../service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ModalComponent } from '../modal/modal.component';
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-	numberOfItems: number = 0;
+	numberOfItems = computed(() => this.service.cartProducts().length);
 
 	constructor(
 		private service: MarketService,
@@ -22,14 +22,10 @@ export class HeaderComponent implements OnInit {
 	@ViewChild(ModalComponent)
 	modal!: ModalComponent;
 
-	ngOnInit(): void {
-		this.service.productAdded$.subscribe((response) => {
-			this.numberOfItems = response.length;
-		});
-	}
+	ngOnInit(): void {}
 
 	hasItems() {
-		return this.numberOfItems > 0;
+		return this.numberOfItems() > 0;
 	}
 
 	isLoggedIn() {
