@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 	}
 
 	isShowOrderSummary() {
-		if (this.products.length == 0) {
+		if (this.products().length == 0) {
 			return false;
 		} else {
 			return (

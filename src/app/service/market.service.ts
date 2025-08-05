@@ -16,7 +16,7 @@ export class MarketService {
 	blogPosts: Post[] = [];
 	products: Product[] = [];
 	cartProducts = signal<Product[]>([]);
-	pageName = signal<string>('');
+	pageName = signal<string>('cart');
 
 	shippingAdress: any;
 

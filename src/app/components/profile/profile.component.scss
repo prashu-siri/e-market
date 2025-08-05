@@ -72,9 +72,9 @@
 		margin-bottom: 1rem;
 	}
 
-  h3 {
-    margin-bottom: 1.5rem;
-  }
+	h3 {
+		margin-bottom: 1.5rem;
+	}
 
 	p.subtext {
 		text-align: center;
@@ -85,50 +85,66 @@
 
 	.order-item {
 		display: grid;
-    grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		padding: 1rem;
 		background: white;
-    border: 1px solid $gray-200;
+		border: 1px solid $gray-200;
 		border-radius: 20px;
 		margin-block: 1rem;
-    box-shadow: $shadow-md;
-    margin-bottom: 2rem;
+		box-shadow: $shadow-md;
+		margin-bottom: 2rem;
 	}
 
-  .order-details-btn {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+	.order-details-btn {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+	}
+
+	.order-item-footer {
+		grid-column: 1/-1;
+		padding: 1rem 0.5rem 0;
+		margin-top: 1rem;
+		border-top: 1px solid $gray-200;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.order-item-text {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.status {
+		color: white;
+		padding: 0.25rem 0.5rem;
+		border-radius: 5px;
+	}
+
+	.status-success {
+		background: green;
+	}
+
+	.status-pending {
+		background-color: #dba035;
+	}
+}
+
+@media (max-width: 767px) {
+	.order-wrapper .order-item {
+		grid-template-columns: 1fr;
+	}
+
+  .order-wrapper .order-item-text {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 
-  .order-item-footer {
-    grid-column: 1/-1;
-    padding: 1rem 0.5rem 0;
+  .order-details-btn .btn {
+    width: 100%;
     margin-top: 1rem;
-    border-top: 1px solid $gray-200;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
-
-  .order-item-text {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .status {
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: 5px;
-  }
-
-  .status-success {
-    background: green;
-  }
-
-  .status-pending {
-    background-color: #dba035;
-  }
-
 }
