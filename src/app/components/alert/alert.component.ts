@@ -49,4 +49,10 @@ export class AlertComponent implements OnInit, OnDestroy {
 			});
 		}
 	}
+
+	closeAlert($event: MouseEvent) {
+		$event.preventDefault();
+		this.alertDetails.isSuccessMessage = false;
+		this.alertDetails.isErrorMessage = false;
+	}
 }

@@ -6,6 +6,6 @@ export interface Product {
 	imageUrl: string;
 	available: string;
 	fact: string;
-	quantity?: number;
-	noOfItems?: number;
+	quantity: number;
+	noOfItems: number;
 }

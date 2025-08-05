@@ -20,15 +20,16 @@ export class AuthService {
 			firstName: login.firstName,
 			lastName: login.lastName,
 			email: login.email,
+			id: login.id,
 		};
 		sessionStorage.setItem('login', JSON.stringify(loginDetails));
 	}
 
 	isLoggedIn() {
-		return sessionStorage.getItem('login') !== null;
+		return this.getLoggedInUser() ? true : false;
 	}
 
-	getLoggedInUser() {
+	getLoggedInUser(): Login {
 		let loginDetails =
 			sessionStorage.getItem('login') ?? JSON.stringify('');
 		return JSON.parse(loginDetails);

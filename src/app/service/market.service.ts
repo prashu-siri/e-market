@@ -1,11 +1,12 @@
-import { Injectable, signal } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Review } from '../interface/review';
-import { Observable, Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 import { Post } from '../interface/post';
 import { Product } from '../interface/product';
-import { map } from 'rxjs/operators';
+import { Review } from '../interface/review';
+import { UserAddress } from '../interface/UserAddress';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -172,7 +173,18 @@ export class MarketService {
 		return this.http.get(path);
 	}
 
+	getAddresses(id: number) {
+		const path = this.baseUrl + 'userAddress?userId=' + id;
+
+		return this.http.get(path);
+	}
+
 	setpageName(pageName: string) {
 		this.pageName.update(() => pageName);
+	}
+
+	saveAddress(userAddress: UserAddress) {
+		const path = this.baseUrl + 'userAddress/' + userAddress.id;
+		return this.http.put(path, JSON.stringify(userAddress));
 	}
 }

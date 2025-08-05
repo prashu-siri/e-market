@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Login } from 'src/app/interface/login';
+import { UserAddress } from 'src/app/interface/UserAddress';
+import { Order } from '../../interface/order';
 import { AuthService } from '../../service/auth.service';
 import { MarketService } from '../../service/market.service';
-import { Order } from '../../interface/order';
-import { Login } from 'src/app/interface/login';
-import { Product } from 'src/app/interface/product';
 
 @Component({
 	selector: 'app-profile',
@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
 	orders: Order[] = [];
 	tab: string = 'orders';
 	loggedInUser: Login = {} as Login;
+	userAddress: UserAddress = {} as UserAddress;
 
 	constructor(
 		private authService: AuthService,
@@ -22,13 +23,25 @@ export class ProfileComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.isLoggedIn = this.authService.isLoggedIn();
+		this.getLoggedInUser();
 		this.getOrders();
+		this.getAddresses();
+	}
+
+	getLoggedInUser() {
 		this.loggedInUser = this.authService.getLoggedInUser();
+		this.isLoggedIn = this.loggedInUser ? true : false;
+		return this.loggedInUser;
+	}
+	getAddresses() {
+		const id = this.loggedInUser.id;
+		this.marketService.getAddresses(id).subscribe((response: any) => {
+			this.userAddress = response[0];
+		});
 	}
 
 	getOrders() {
-		const email = this.authService.getLoggedInUser().email;
+		const email = this.loggedInUser.email;
 		this.marketService.getOrders(email).subscribe((response: any) => {
 			if (response.length > 0) {
 				this.orders = response;
@@ -39,20 +52,5 @@ export class ProfileComponent implements OnInit {
 	changeTab(event: MouseEvent, tabName: string) {
 		event.preventDefault();
 		this.tab = tabName;
-	}
-
-	calculateTotalCost(products: Product[]) {
-		let totalCost = 0;
-		products.forEach((product: Product) => {
-			totalCost = totalCost + (product.quantity ?? 0) * product.cost;
-		});
-
-		return totalCost;
-	}
-
-	getStatusClass(status: string) {
-		return status.toLowerCase() == 'delivered'
-			? 'status-success'
-			: 'status-pending';
 	}
 }

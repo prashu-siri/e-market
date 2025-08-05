@@ -34,6 +34,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { OrderConfirmationComponent } from './components/order-confirmation/order-confirmation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderComponent } from './components/order/order.component';
+import { AddressComponent } from './components/address/address.component';
 
 @NgModule({
 	declarations: [
@@ -61,6 +63,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		SelectComponent,
 		SpinnerComponent,
 		OrderConfirmationComponent,
+		OrderComponent,
+		AddressComponent,
 	],
 	imports: [
 		BrowserModule,

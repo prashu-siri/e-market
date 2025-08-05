@@ -43,36 +43,18 @@
 					<h2>Order History</h2>
 					<p class="subtext">Track and view past orders</p>
 
-					@for (order of orders; track $index) {
-					<div class="order-item">
-						<div>
-							<h3>Order #{{ order.orderId }}</h3>
-							<div class="order-item-text">
-								<p [ngClass]="'status ' + getStatusClass(order.status)">{{ order.status }}</p>
-								<p>{{ calculateTotalCost(order.products) | currency: 'INR'}}</p>
-							</div>
-						</div>
-						<div class="order-details-btn">
-							<button class="btn btn-primary btn-icon">
-                <app-icon name="eye"></app-icon>
-								View Details
-							</button>
-						</div>
-            <div class="order-item-footer">
-              <div class="df ai-center">
-                <app-icon name="calendar"></app-icon>
-                <p>Delivered on {{order.orderedOn}}</p>
-              </div>
-              <div class="df ai-center">
-                <app-icon name="cart"></app-icon>
-                {{order.products.length}}
-              </div>
-            </div>
-					</div>
-					}
+          @if (orders.length > 0) {
+          <app-order [orders]="orders"></app-order>
+          } @else {
+
+          }
 				</div>
 				} @else if (tab == 'address') {
-				<div>Display addressses</div>
+        <div>
+          <h2>Address</h2>
+          <p class="subtext">View, edit or add a new address</p>
+          <app-address [userAddress]="userAddress"></app-address>
+        </div>
 				}
 			</section>
 		</section>
