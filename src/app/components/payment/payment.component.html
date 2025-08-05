@@ -1,201 +1,133 @@
 <div class="page-container">
-	<div class="container">
-		<h1 class="page-heading">Payment</h1>
-		<ul class="payment-options">
-			<li>
-				<label class="radio-label">
-					<span>
-						Credit / Debit card
-						<img
-							src="../../../../../assets/img/e-market/credit-card.svg"
-							alt=""
-							height="24px"
-							width="32px"
-						/>
-					</span>
-					<input
-						type="radio"
-						name="payment"
-						value="card"
-						[(ngModel)]="paymentType"
-						checked
-					/>
-					<span class="checker checker-outside"></span>
-				</label>
-				@if (paymentType == 'card') {
-				<div class="payment-wrapper">
-					<form [formGroup]="cardPaymentForm">
-						<div class="form-field-wrapper">
-							<label for="cardNumber">Card Number</label>
-							<input
-								type="text"
-								name="cardNumber"
-								placeholder="XXXX XXXX XXXX XXXX"
-								formControlName="cardNumber"
-								mask="0000 0000 0000 0000"
-                [dropSpecialCharacters]="false"
-                maxlength="19"
-							/>
-						</div>
-						@if(cardNumber.invalid && cardNumber.touched) { @if
-						(cardNumber.errors?.required) {
-						<p class="inline_error">Card number is required</p>
-						}@if (cardNumber.errors?.pattern) {
-						<p class="inline_error">Only numbers allowed</p>
-						}
-            @if (cardNumber.errors?.['luhnCheck']) {
+  <div class="container">
+    <h1 class="page-heading">Payment</h1>
+    <div class="form-wrapper">
+      <ul class="payment-options">
+        <li>
+          <label class="radio-label">
+            <span>
+              Credit / Debit card
+              <img src="../../../../../assets/img/e-market/credit-card.svg" alt="" height="24px" width="32px" />
+              </span>
+            <input type="radio" name="payment" value="card" [(ngModel)]="paymentType" checked />
+            <span class="checker checker-outside"></span>
+            </label>
+            @if (paymentType == 'card') {
+            <div class="payment-wrapper">
+              <form [formGroup]="cardPaymentForm">
+                <div class="form-field-wrapper">
+                  <label for="cardNumber">Card Number</label>
+                <input type="text" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" formControlName="cardNumber"
+                  mask="0000 0000 0000 0000" [dropSpecialCharacters]="false" maxlength="19" />
+                </div>
+                @if(cardNumber.invalid && cardNumber.touched) { @if
+                (cardNumber.errors?.required) {
+                <p class="inline_error">Card number is required</p>
+                }@if (cardNumber.errors?.pattern) {
+                <p class="inline_error">Only numbers allowed</p>
+                }
+                @if (cardNumber.errors?.['luhnCheck']) {
               <p class="inline_error">Invalid card number</p>
-            }}
-						<div class="side-layout">
-							<div class="form-field-wrapper">
-								<label for="expiry">Expiry</label>
-								<input
-									type="text"
-									id="expiry"
-									name="expiry"
-									placeholder="mm/yy"
-									formControlName="expiry"
-                  mask="00/00"
-                  [dropSpecialCharacters]="false"
-								/>
-                @if (expiry.invalid && expiry.touched) {
+              }}
+              <div class="side-layout">
+                <div class="form-field-wrapper">
+                  <label for="expiry">Expiry</label>
+                  <input type="text" id="expiry" name="expiry" placeholder="mm/yy" formControlName="expiry" mask="00/00"
+                    [dropSpecialCharacters]="false" />
+                  @if (expiry.invalid && expiry.touched) {
 
-                @if (expiry.errors?.['required']) {
+                  @if (expiry.errors?.['required']) {
                   <p class="inline_error">Expiry date is required</p>
-                }
-                @if (expiry.errors?.['pattern']) {
+                  }
+                  @if (expiry.errors?.['pattern']) {
                   <p class="inline_error">Invalid format (use MM/YY)</p>
-                }
-                @if (expiry.errors?.['expired']) {
+                  }
+                  @if (expiry.errors?.['expired']) {
                   <p class="inline_error">This card is expired</p>
-                }
-            }
-							</div>
+                  }
+                  }
+                  </div>
 
 
-							<div class="form-field-wrapper">
-								<label for="cvv">CVV</label>
-								<input
-									type="text"
-									id="cvv"
-									name="cvv"
-									formControlName="cvv"
-								/>
-                @if(cvv.invalid && cvv.touched) {
-                @if(cvv.errors?.required) {
+                <div class="form-field-wrapper">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" formControlName="cvv" />
+                  @if(cvv.invalid && cvv.touched) {
+                  @if(cvv.errors?.required) {
                   <p class="inline_error">CVV is required</p>
-                } @if(cvv.errors?.pattern) {
+                  } @if(cvv.errors?.pattern) {
                   <p class="inline_error">CVV must be 3 or 4 digits</p>
-                }
-              }
-							</div>
-						</div>
-						<div class="form-field-wrapper">
-							<label for="nameOnCard">Name on card</label>
-							<input
-								type="text"
-								id="nameOnCard"
-								name="nameOnCard"
-								formControlName="nameOnCard"
-							/>
-						</div>
-            @if(nameOnCard.invalid && nameOnCard.touched) {
+                  }
+                  }
+                  </div>
+                  </div>
+                  <div class="form-field-wrapper">
+                    <label for="nameOnCard">Name on card</label>
+                <input type="text" id="nameOnCard" name="nameOnCard" formControlName="nameOnCard" />
+                </div>
+                @if(nameOnCard.invalid && nameOnCard.touched) {
               @if(nameOnCard.errors?.required) {
-                <p class="inline_error">CVV is required</p>
+              <p class="inline_error">CVV is required</p>
               }
-            }
-					</form>
-				</div>
-				}
-			</li>
-			<li>
-				<label class="radio-label">
-					<span>
-						UPI
-						<img
-							src="../../../../../assets/img/e-market/upi-icon.svg"
-							alt="UPI"
-							height="24px"
-							width="32px"
-						/>
-					</span>
-					<input
-						type="radio"
-						name="payment"
-						value="upi"
-						[(ngModel)]="paymentType"
-					/>
-					<span class="checker checker-outside"></span>
-				</label>
-				@if (paymentType == 'upi') {
-				<div class="stack-layout">
-					<button class="btn-payment">
-						<span>
-							<img
-								class="img"
-								src="../../../../../assets/img/e-market/phonepe-icon.svg"
-								alt=""
-							/>
-							PhonePe
-						</span>
-						<span>&#10230;</span>
-					</button>
-					<button class="btn-payment">
-						<span>
-							<img
-								class="img"
-								src="../../../../../assets/img/e-market/google-pay-icon.svg"
-								alt=""
-							/>
-							GPay
-						</span>
-						<span>&#10230;</span>
-					</button>
-					<button class="btn-payment">
-						<span>
-							<img
-								class="img"
-								src="../../../../../assets/img/e-market/paytm-icon.svg"
-								alt=""
-							/>
-							Paytm
-						</span>
-						<span>&#10230;</span>
-					</button>
-				</div>
-				}
-			</li>
-			<li>
-				<label class="radio-label">
-					<span>
-						Cash On delivery
-						<img
-							src="../../../../../assets/img/e-market/wallet.svg"
-							alt=""
-							height="24px"
-							width="32px"
-						/>
-					</span>
-					<input
-						type="radio"
-						name="payment"
-						value="cod"
-						[(ngModel)]="paymentType"
-					/>
-					<span class="checker checker-outside"></span>
-				</label>
-			</li>
-		</ul>
-		<div class="btn-container side-layout-flex">
-			<button
-				class="btn btn-secondary"
-				(click)="navigateToPreviousPage()"
-			>
-				Back
-			</button>
-			<button class="btn btn-primary" (click)="processPayment()">
-				Proceed
-			</button>
-		</div>
-	</div>
+              }
+              </form>
+              </div>
+              }
+              </li>
+              <li>
+                <label class="radio-label">
+                  <span>
+                    UPI
+              <img src="../../../../../assets/img/e-market/upi-icon.svg" alt="UPI" height="24px" width="32px" />
+              </span>
+            <input type="radio" name="payment" value="upi" [(ngModel)]="paymentType" />
+            <span class="checker checker-outside"></span>
+            </label>
+            @if (paymentType == 'upi') {
+            <div class="stack-layout">
+              <button class="btn-payment">
+                <span>
+                <img class="img" src="../../../../../assets/img/e-market/phonepe-icon.svg" alt="" />
+                PhonePe
+                </span>
+                <span>&#10230;</span>
+                </button>
+                <button class="btn-payment">
+                  <span>
+                <img class="img" src="../../../../../assets/img/e-market/google-pay-icon.svg" alt="" />
+                GPay
+                </span>
+                <span>&#10230;</span>
+                </button>
+                <button class="btn-payment">
+                  <span>
+                <img class="img" src="../../../../../assets/img/e-market/paytm-icon.svg" alt="" />
+                Paytm
+                </span>
+                <span>&#10230;</span>
+                </button>
+                </div>
+                }
+                </li>
+                <li>
+                  <label class="radio-label">
+                    <span>
+                      Cash On delivery
+              <img src="../../../../../assets/img/e-market/wallet.svg" alt="" height="24px" width="32px" />
+              </span>
+            <input type="radio" name="payment" value="cod" [(ngModel)]="paymentType" />
+            <span class="checker checker-outside"></span>
+            </label>
+            </li>
+            </ul>
+            <div class="btn-container side-layout-flex">
+        <button class="btn btn-secondary" (click)="navigateToPreviousPage()">
+          Back
+        </button>
+        <button class="btn btn-primary" (click)="processPayment()">
+          Proceed
+        </button>
+        </div>
+        </div>
+  </div>
 </div>

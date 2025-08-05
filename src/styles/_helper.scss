@@ -22,9 +22,10 @@
   align-items: center;
 }
 
-@mixin flex($justifyContent: flex-start, $alignItem: flex-start, $direction: row) {
+@mixin flex($justifyContent: flex-start, $alignItem: flex-start, $direction: row, $gap: 0) {
   display         : flex;
   justify-content : $justifyContent;
   align-items     : $alignItem;
   flex-direction  : $direction;
+  gap: $gap;
 }

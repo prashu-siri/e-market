@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
-import { Alert } from 'src/app/interface/alert';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Alert } from 'src/app/interface/alert';
 import { MarketService } from 'src/app/service/market.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
 	selector: 'app-sign-in',
@@ -20,8 +19,6 @@ export class SignInComponent implements OnInit {
 	constructor(
 		private authService: AuthService,
 		private fb: FormBuilder,
-		private route: Router,
-		private activatedRoute: ActivatedRoute,
 		private title: Title,
 		private service: MarketService
 	) {}
@@ -63,6 +60,7 @@ export class SignInComponent implements OnInit {
 			this.authService
 				.login(this.signInForm.value, 'login')
 				.subscribe((response) => {
+					console.log(response);
 					if (response) {
 						this.authService.setLogin(response);
 						this.loginSuccess.emit();

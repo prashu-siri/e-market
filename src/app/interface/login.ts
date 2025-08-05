@@ -3,4 +3,5 @@ export interface Login {
 	lastName: string;
 	email: string;
 	password: string;
+	id: number;
 }

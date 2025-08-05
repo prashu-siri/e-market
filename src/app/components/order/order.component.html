@@ -1,0 +1,75 @@
+@for (order of orders; track $index) {
+<div class="order-item">
+  <div>
+    <h3>Order #{{ order.orderId }}</h3>
+    <div class="order-item-text">
+      <p [ngClass]="'status ' + getStatusClass(order.status)">
+        {{ order.status }}
+      </p>
+      <p class="text-highlight">{{ calculateTotalCost(order.products) | currency : "INR" }}</p>
+    </div>
+  </div>
+  <div class="order-details-btn">
+    <button class="btn btn-primary btn-icon" (click)="viewOrderDetails(order)">
+      <app-icon name="eye"></app-icon>
+      View Details
+    </button>
+  </div>
+  <div class="order-item-footer">
+    <div class="df ai-center icon-space">
+      <app-icon name="calendar"></app-icon>
+      <p>Delivered on {{ order.orderedOn }}</p>
+    </div>
+    <div class="df ai-center icon-space">
+      <app-icon name="cart"></app-icon>
+      {{ order.products.length }}
+    </div>
+  </div>
+</div>
+}
+
+
+<div class="modal-container" id="modal-side">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h1>Order #{{selectedOrder.orderId}}</h1>
+        <p class="item-text">Ordered on {{convertDate(selectedOrder.orderedOn) | date: "mediumDate"}}</p>
+      </div>
+      <a (click)="closeModal()">
+        <app-icon name="close"></app-icon>
+      </a>
+    </div>
+    <div class="modal-body">
+      <div class="order-status">
+        <span [ngClass]="'status ' + getStatusClass(selectedOrder.status)">{{selectedOrder.status}}</span>
+        <span class="text-highlight">Total: {{calculateTotalCost(selectedOrder.products) | currency: 'INR'}}</span>
+      </div>
+      <div class="order-item-wrapper">
+        <h3>Order Items</h3>
+        @for (item of selectedOrder.products; track $index) {
+        <div class="item-card">
+          <div class="item-image">
+            <img [src]="item.imageUrl" alt="">
+          </div>
+          <div class="item-details">
+            <p class="item-title">{{item.name}}</p>
+            <p class="item-text">Quantity: {{item.quantity}}</p>
+            <p class="item-text">Cost per Unit: {{item.cost}}</p>
+          </div>
+          <div>
+            <p class="item-cost">{{item.cost * item.quantity | currency: 'INR'}}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="button-container button-end">
+        <button (click)="closeModal()" class="btn btn-primary btn-icon">
+          <app-icon name="cart"></app-icon>Reorder Item
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

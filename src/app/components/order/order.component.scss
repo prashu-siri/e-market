@@ -1,0 +1,166 @@
+@import "../../../styles/default";
+
+.order-item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1rem;
+  background: white;
+  border: 1px solid $gray-200;
+  border-radius: 20px;
+  margin-block: 1rem;
+  box-shadow: $shadow-md;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  margin-bottom: 1.5rem;
+}
+
+.order-details-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.order-item-footer {
+  grid-column: 1/-1;
+  padding: 1rem 0.5rem 0;
+  margin-top: 1rem;
+  border-top: 1px solid $gray-200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-item-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status {
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+}
+
+.status-success {
+  background: #059669;
+}
+
+.status-pending {
+  background-color: #dba035;
+}
+
+.text-highlight {
+  font-weight: 600;
+  color: $secondary-clr;
+}
+
+.modal-container {
+  transform: translateX(200%);
+  transition: all 0.01s ease;
+  padding: 0;
+}
+
+.modal-container.open {
+  transform: translateX(0);
+}
+
+.modal-container.open .modal {
+  transform: translateX(0);
+}
+
+.modal {
+  width: 35%;
+  height: 100vh;
+  top: 0;
+  left: calc(100% - 35%);
+  transform: translateX(200%);
+  transition: all 0.5s ease;
+  margin: 0;
+  border-radius: 0;
+  max-height: 100%;
+  max-width: 100%;
+  overflow-y: auto;
+}
+
+.item-card {
+  padding: 1rem;
+  background: $gray-50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 10px;
+  border: 1px solid $gray-200;
+  margin-bottom: 1rem;
+}
+
+.item-image {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid $gray-200;
+  background: white;
+
+  img {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.order-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid $gray-200;
+}
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1 1;
+}
+
+.item-text {
+  color: $gray-500;
+}
+
+.item-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.item-cost {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: $primary-clr;
+}
+
+.button-container{
+  padding: 1rem 2rem;
+  border-top: 1px solid $gray-200;
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .order-item {
+    grid-template-columns: 1fr;
+  }
+
+  .order-item-text {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .order-details-btn .btn {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
