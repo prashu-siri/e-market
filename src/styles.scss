@@ -147,32 +147,36 @@ ul {
 }
 
 .form-wrapper {
-  border-radius: 1.5rem;
-  background-color: white;
-  padding: 2rem;
-  box-shadow: $shadow-md;
+	border-radius: 1.5rem;
+	background-color: white;
+	padding: 2rem;
+	box-shadow: $shadow-md;
 }
 
-.error_banner {
+.alert {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.25rem 1rem;
-	background: #fee1e1;
-	color: #b72222;
 	border-radius: 5px;
+  margin-bottom: 2rem;
 
-	.alert {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-
-		svg#alert {
+	svg#alert {
 			height: 14px;
 			width: 14px;
 		}
-	}
 }
+
+.error_banner {
+	color: #b72222;
+	background: #fee1e1;
+}
+
+.success_banner {
+	color: #017a10;
+  background: #e2f9e4;
+}
+
 .header-container {
 	display: flex;
 	flex-direction: column;
@@ -215,10 +219,6 @@ ul {
 		width: 100%;
 		height: 50px;
 	}
-}
-
-.alert {
-	color: $color-error;
 }
 
 .confirmation-page {
@@ -1263,10 +1263,10 @@ h1 {
 		justify-content: center;
 		align-items: center;
 		gap: 1em;
-    background-color: white;
-    box-shadow: $shadow-md;
-    padding: 2rem 1rem;
-    border-radius: 1.5rem;
+		background-color: white;
+		box-shadow: $shadow-md;
+		padding: 2rem 1rem;
+		border-radius: 1.5rem;
 
 		button {
 			margin-top: 2em;
@@ -1342,7 +1342,7 @@ h1 {
 		border-radius: 5px;
 		padding: 2em;
 		height: max-content;
-    background-color: white;
+		background-color: white;
 	}
 
 	.order-summary-heading {

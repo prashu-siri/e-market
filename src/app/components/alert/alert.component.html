@@ -1,19 +1,11 @@
 <div
-	class="banner"
 	id="alert"
 	[class.success_banner]="alertDetails.isSuccessMessage"
 	[class.error_banner]="alertDetails.isErrorMessage"
 	*ngIf="isShowAlert()"
 >
-	<div class="alert">
-		@if (alertDetails.isSuccessMessage) {
-		<img src="../../../assets/svg/check-circle.svg" alt="success" />
-		} @else {
-		<app-icon name="alert" />
-		}
-		<span>{{ alertDetails.message }}</span>
-	</div>
-  <div>
+  <div class="alert">
+    <span>{{ alertDetails.message }}</span>
     <a href="#" (click)="closeAlert($event)">
       <app-icon name="close"></app-icon>
     </a>
