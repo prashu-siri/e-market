@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Address } from 'src/app/interface/address';
 import { Alert } from 'src/app/interface/alert';
-import { UserAddress } from 'src/app/interface/UserAddress';
+import { UserAddress } from 'src/app/interface/userAddress';
 import { MarketService } from 'src/app/service/market.service';
 
 @Component({

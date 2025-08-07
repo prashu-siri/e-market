@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from 'src/app/interface/login';
-import { UserAddress } from 'src/app/interface/UserAddress';
-import { Order } from '../../interface/order';
+import { UserOrders } from 'src/app/interface/user-orders';
+import { UserAddress } from 'src/app/interface/userAddress';
 import { AuthService } from '../../service/auth.service';
 import { MarketService } from '../../service/market.service';
 
@@ -12,7 +12,7 @@ import { MarketService } from '../../service/market.service';
 })
 export class ProfileComponent implements OnInit {
 	isLoggedIn: boolean = false;
-	orders: Order[] = [];
+	userOrders!: UserOrders;
 	tab: string = 'orders';
 	loggedInUser: Login = {} as Login;
 	userAddress: UserAddress = {} as UserAddress;
@@ -41,16 +41,30 @@ export class ProfileComponent implements OnInit {
 	}
 
 	getOrders() {
-		const email = this.loggedInUser.email;
-		this.marketService.getOrders(email).subscribe((response: any) => {
-			if (response.length > 0) {
-				this.orders = response;
-			}
+		const id = this.loggedInUser.id;
+		this.marketService.getOrders(id).subscribe((response: any) => {
+			this.userOrders = response;
 		});
 	}
 
 	changeTab(event: MouseEvent, tabName: string) {
 		event.preventDefault();
 		this.tab = tabName;
+	}
+
+	openModal(event: MouseEvent) {
+		if (event) {
+			event.preventDefault();
+		}
+
+		document.querySelector('#modal-address')?.classList.add('open');
+	}
+
+	closeModal(event: MouseEvent) {
+		if (event) {
+			event.preventDefault();
+		}
+
+		document.querySelector('#modal-address')?.classList.remove('open');
 	}
 }
