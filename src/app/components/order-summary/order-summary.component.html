@@ -1,59 +1,81 @@
 @if (products().length > 0) {
-<div class="order-summary page-container">
-	<h2>Order Summary</h2>
-	<div>
-		@if (pageName() == 'cart') {
-		<div class="coupon-container">
-			<div class="coupon-wrapper">
-				<input
-					type="text"
-					name="coupon"
-					placeholder="coupon code"
-					class="coupon-input"
-					[(ngModel)]="couponCode"
-				/>
-				<img
-					class="icon-coupon"
-					src="../../../../../assets/img/e-market/coupon-percent.svg"
-				/>
-			</div>
-			<button (click)="validateCoupon()" class="btn btn-coupon">
-				Apply
-			</button>
-		</div>
-		<div>
-			<p class="error" *ngIf="isInvalidCoupon">Invalid coupon</p>
-			<p class="helper-text">
-				<strong>FRESH50</strong> save 50 on order above 200
-			</p>
-		</div>
-		}
+  <div class="order-summary page-container">
+    <h2>Order Summary</h2>
+    <div>
+      @if (pageName() == 'cart') {
+        <div class="coupon-container">
+          <div class="coupon-wrapper">
+            <input
+              type="text"
+              name="coupon"
+              placeholder="coupon code"
+              class="coupon-input"
+              [(ngModel)]="couponCode"
+            />
+            <img
+              class="icon-coupon"
+              src="../../../../../assets/img/e-market/coupon-percent.svg"
+            />
+          </div>
+          <button (click)="validateCoupon()" class="btn btn-coupon">
+            Apply
+          </button>
+        </div>
+        <div>
+          <p class="error" *ngIf="isInvalidCoupon">Invalid coupon</p>
+          <p class="helper-text">
+            <strong>FRESH50</strong> save 50 on order above 200
+          </p>
+        </div>
+      }
 
-    @if(pageName() == 'cart' || (pageName() == 'shipping' && isLoggedIn)){}
-		<div class="side-content">
-			<span class="content-label">Subtotal</span>
-			<strong>{{ calculateSubTotal() | currency : "INR" }}</strong>
-		</div>
-		<div class="side-content">
-			<span class="content-label">Discount</span>
-			<strong class="content-spl"> -{{ discount }}</strong>
-		</div>
-		<div class="side-content">
-			<span class="content-label">Delivery</span>
-			<strong>FREE</strong>
-		</div>
-		<div class="side-content side-content-last">
-			<strong>TOTAL</strong>
-			<strong>{{ calculateTotalCost() | currency : "INR" }}</strong>
-		</div>
-	</div>
-	<button
-		class="btn btn-primary"
-		(click)="navigateTonextpage()"
-		*ngIf="pageName() == 'cart'"
-	>
-		Checkout
-	</button>
-</div>
+      @if (isUserLoggedIn()) {
+          @if(pageName() != 'cart') {
+            <div>
+            @for (item of products(); track $index) {
+            <div class="item-card">
+              <div class="item-image">
+                <img [src]="item.imageUrl" alt="" />
+              </div>
+              <div class="item-details">
+                <p class="item-title">{{ item.name }}</p>
+                <p class="item-text">Quantity: {{ item.quantity }}</p>
+                <p class="item-text">Cost per Unit: {{ item.cost }}</p>
+              </div>
+              <div>
+                <p class="item-cost">
+                  {{ item.cost * item.quantity | currency : "INR" }}
+                </p>
+              </div>
+            </div>
+            }
+          </div>
+          }
 
+        <div class="side-content">
+          <span class="content-label">Subtotal</span>
+          <strong>{{ calculateSubTotal() | currency : "INR" }}</strong>
+        </div>
+        <div class="side-content">
+          <span class="content-label">Discount</span>
+          <strong class="content-spl"> -{{ discount }}</strong>
+        </div>
+        <div class="side-content">
+          <span class="content-label">Delivery</span>
+          <strong>FREE</strong>
+        </div>
+        <div class="side-content side-content-last">
+          <strong>TOTAL</strong>
+          <strong>{{ calculateTotalCost() | currency : "INR" }}</strong>
+        </div>
+        }
+    </div>
+    <button
+      class="btn btn-primary"
+      (click)="navigateTonextpage()"
+      *ngIf="pageName() == 'cart'"
+    >
+      Checkout
+    </button>
+  </div>
 }
