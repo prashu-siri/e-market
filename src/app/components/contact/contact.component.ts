@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Alert } from 'src/app/interface/alert';
 import { Title } from '@angular/platform-browser';
+import { Alert } from 'src/app/interface/alert';
 
 @Component({
 	selector: 'app-contact',
@@ -30,7 +30,8 @@ export class ContactComponent implements OnInit {
 		if (this.contactForm.valid) {
 			this.alertDetails = {
 				isSuccessMessage: true,
-				message: 'We have received your message.',
+				message:
+					'We have received your message. We will get back to you in 24 hours',
 			};
 		} else {
 			this.alertDetails = {

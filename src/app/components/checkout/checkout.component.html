@@ -1,9 +1,11 @@
 <div class="page-container">
 	<div class="container">
-		<!-- <h1 class="page-heading">Checkout</h1> -->
-
-		<app-alert [alertDetails]="alert"></app-alert>
-
+		@if (products().length > 0) {
+		<div class="header-container">
+			<h1>{{ getHeading() }}</h1>
+			<p class="subtitle">{{ getSubText() }}</p>
+		</div>
+		}
 		<section class="side-layout-flex">
 			@switch (pageName()) { @case ('cart') {
 			<app-cart class="side-left"></app-cart>

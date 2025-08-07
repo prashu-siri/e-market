@@ -1,12 +1,11 @@
 import { Component, computed, OnDestroy, OnInit } from '@angular/core';
-import { MarketService } from '../../service/market.service';
-import { Product } from '../../interface/product';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Alert } from 'src/app/interface/alert';
 import { SubscriptionContainer } from '../../helper/subscription-container';
 import { AuthService } from '../../service/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { MarketService } from '../../service/market.service';
 
 @Component({
 	selector: 'app-checkout',
@@ -66,6 +65,32 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	getHeading() {
+		switch (this.pageName()) {
+			case 'cart':
+				return 'Checkout';
+			case 'shipping':
+				return 'Shipping';
+			case 'payment':
+				return 'Payment';
+			default:
+				return '';
+		}
+	}
+
+	getSubText() {
+		switch (this.pageName()) {
+			case 'cart':
+				return `You have ${this.products().length} item in your cart`;
+			case 'shipping':
+				return 'Fill in the address details or select a saved address';
+			case 'payment':
+				return 'Complete the payment to place the order';
+			default:
+				return '';
+		}
+	}
+
 	getStates() {
 		this.subscription.addSubscription = this.service
 			.fetchStates()
@@ -112,7 +137,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		} else {
 			return (
 				this.pageName() == 'cart' ||
-				(this.pageName() == 'shipping' && this.isLoggedIn())
+				(this.pageName() == 'shipping' && this.isLoggedIn()) ||
+				(this.pageName() == 'payment' && this.isLoggedIn())
 			);
 		}
 	}

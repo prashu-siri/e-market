@@ -42,19 +42,33 @@
 				<div>
 					<h2>Order History</h2>
 					<p class="subtext">Track and view past orders</p>
-
-          @if (orders.length > 0) {
-          <app-order [orders]="orders"></app-order>
-          } @else {
-
-          }
+					@if (userOrders) {
+					<app-order [userOrders]="userOrders"></app-order>
+					} @else {
+					<div class="cart-empty">
+						<img src="../../../assets/img/e-market/box.png" alt="" height="300" width="300">
+						<p class="text-xl">No Orders yet</p>
+						<p>Looks like you haven't order anything yet</p>
+						<button class="btn btn-primary" routerLink="home">
+							Continue shopping
+						</button>
+					</div>
+					}
 				</div>
 				} @else if (tab == 'address') {
-        <div>
-          <h2>Address</h2>
-          <p class="subtext">View, edit or add a new address</p>
-          <app-address [userAddress]="userAddress"></app-address>
-        </div>
+				<div>
+					<h2>Address</h2>
+					<p class="subtext">View, edit or add a new address</p>
+					<div class="df jc-center">
+						<button
+							class="btn btn-primary btn-icon"
+							(click)="openModal($event)"
+						>
+							Add Address
+						</button>
+					</div>
+					<app-address [userAddress]="userAddress"></app-address>
+				</div>
 				}
 			</section>
 		</section>

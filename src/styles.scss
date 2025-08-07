@@ -147,37 +147,46 @@ ul {
 }
 
 .form-wrapper {
-  border-radius: 1.5rem;
-  background-color: white;
-  padding: 2rem;
-  box-shadow: $shadow-md;
+	border-radius: $border-radius;
+	background-color: white;
+	padding: 2rem;
+	box-shadow: $shadow-md;
 }
 
-.error_banner {
+.alert {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.25rem 1rem;
-	background: #fee1e1;
-	color: #b72222;
 	border-radius: 5px;
+  margin-bottom: 2rem;
 
-	.alert {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-
-		svg#alert {
+	svg#alert {
 			height: 14px;
 			width: 14px;
 		}
-	}
 }
+
+.error_banner {
+	color: #b72222;
+	background: #fee1e1;
+}
+
+.success_banner {
+	color: #017a10;
+  background: #e2f9e4;
+}
+
 .header-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin-bottom: 3em;
+  padding-bottom: 1rem;
+  border-radius: $border-radius;
+  background-color: white;
+  box-shadow: $shadow-md;
+  background-color: $bg-gradient-primary;
 
 	h1 {
 		font-size: 2.5rem;
@@ -215,10 +224,6 @@ ul {
 		width: 100%;
 		height: 50px;
 	}
-}
-
-.alert {
-	color: $color-error;
 }
 
 .confirmation-page {
@@ -266,6 +271,52 @@ h1 {
 	flex-wrap: wrap;
 	justify-content: center;
 	margin-top: 2em;
+}
+
+.item-card {
+  padding: 1rem;
+  background: $gray-50;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 10px;
+  border: 1px solid $gray-200;
+  margin-bottom: 1rem;
+}
+
+.item-image {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid $gray-200;
+  background: white;
+
+  img {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1 1;
+}
+
+.item-text {
+  color: $gray-500;
+}
+
+.item-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.item-cost {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: $primary-clr;
 }
 
 @keyframes fadeIn {
@@ -1251,6 +1302,7 @@ h1 {
 	.side-layout-flex {
 		display: flex;
 		justify-content: space-between;
+    gap: 2rem;
 	}
 
 	.side-left {
@@ -1263,10 +1315,10 @@ h1 {
 		justify-content: center;
 		align-items: center;
 		gap: 1em;
-    background-color: white;
-    box-shadow: $shadow-md;
-    padding: 2rem 1rem;
-    border-radius: 1.5rem;
+		background-color: white;
+		box-shadow: $shadow-md;
+		padding: 2rem 1rem;
+		border-radius: $border-radius;
 
 		button {
 			margin-top: 2em;
@@ -1291,7 +1343,7 @@ h1 {
 			flex-basis: 100%;
 			background-color: white;
 			padding: 3rem;
-			border-radius: 1.5rem;
+			border-radius: $border-radius;
 			box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 		}
 
@@ -1339,10 +1391,10 @@ h1 {
 
 	.order-summary {
 		box-shadow: 5px 5px 15px rgba(0 0 0 / 25%);
-		border-radius: 5px;
+		border-radius: $border-radius;
 		padding: 2em;
 		height: max-content;
-    background-color: white;
+		background-color: white;
 	}
 
 	.order-summary-heading {

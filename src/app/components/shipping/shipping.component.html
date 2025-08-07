@@ -1,7 +1,5 @@
 <div class="page-container">
-	<div class="container">
-		<h1 class="page-heading">Shipping</h1>
-		@if (isLoggedIn()) {
+	@if (isLoggedIn()) {
     <div class="form-wrapper">
       <form (ngSubmit)="submit()" [formGroup]="form">
 			<div class="form-horizontal">
@@ -123,7 +121,6 @@
 			</div>
 		</div>
 		}
-	</div>
 </div>
 
 <app-modal [isPrimaryButtonVisible]="false" [isSecondaryButtonVisible]="false">

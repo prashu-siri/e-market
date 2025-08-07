@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { Post } from '../interface/post';
 import { Product } from '../interface/product';
 import { Review } from '../interface/review';
-import { UserAddress } from '../interface/UserAddress';
+import { UserAddress } from '../interface/userAddress';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -167,8 +167,8 @@ export class MarketService {
 		return this.http.post(path, JSON.stringify(params));
 	}
 
-	getOrders(email: any) {
-		const path = this.baseUrl + 'orders?email=' + email;
+	getOrders(userId: any) {
+		const path = this.baseUrl + 'orders/' + userId;
 
 		return this.http.get(path);
 	}

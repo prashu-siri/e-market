@@ -1,5 +1,5 @@
-import { Component, computed, Input, OnInit } from '@angular/core';
-import { Product } from '../../interface/product';
+import { Component, computed, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 import { MarketService } from '../../service/market.service';
 
 @Component({
@@ -29,9 +29,16 @@ export class OrderSummaryComponent implements OnInit {
 
 	products = computed(() => this.service.cartProducts());
 
-	constructor(private service: MarketService) {}
+	constructor(
+		private service: MarketService,
+		private authService: AuthService
+	) {}
 
 	ngOnInit(): void {}
+
+	isUserLoggedIn() {
+		return this.authService.isLoggedIn();
+	}
 
 	calculateSubTotal(): number {
 		this.totalCost = 0;

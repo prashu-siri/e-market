@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Order } from 'src/app/interface/order';
 import { Product } from 'src/app/interface/product';
+import { UserOrders } from 'src/app/interface/user-orders';
 
 @Component({
 	selector: 'app-order',
@@ -11,16 +12,16 @@ export class OrderComponent {
 	constructor() {}
 
 	@Input()
-	orders!: Order[];
+	userOrders!: UserOrders;
 
 	selectedOrder: Order = {} as Order;
 
 	convertDate(date: string): string | number | Date {
-    if(date) {
-      return new Date(date);
-    }
+		if (date) {
+			return new Date(date);
+		}
 
-    return '';
+		return '';
 	}
 
 	getStatusClass(status: string) {
