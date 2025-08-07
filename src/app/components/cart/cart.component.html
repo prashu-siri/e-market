@@ -1,7 +1,5 @@
 <div class="page-container">
-	<div class="container">
-		@if (hasProducts()) {
-		<h1 class="page-heading">Cart</h1>
+	@if (hasProducts()) {
 		<div class="cart-container cart-lg">
 			@for (product of products(); track $index) {
 			<div class="cart-items">
@@ -110,5 +108,4 @@
 			</button>
 		</div>
 		}
-	</div>
 </div>

@@ -65,6 +65,32 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 		});
 	}
 
+	getHeading() {
+		switch (this.pageName()) {
+			case 'cart':
+				return 'Checkout';
+			case 'shipping':
+				return 'Shipping';
+			case 'payment':
+				return 'Payment';
+			default:
+				return '';
+		}
+	}
+
+	getSubText() {
+		switch (this.pageName()) {
+			case 'cart':
+				return `You have ${this.products().length} item in your cart`;
+			case 'shipping':
+				return 'Fill in the address details or select a saved address';
+			case 'payment':
+				return 'Complete the payment to place the order';
+			default:
+				return '';
+		}
+	}
+
 	getStates() {
 		this.subscription.addSubscription = this.service
 			.fetchStates()
